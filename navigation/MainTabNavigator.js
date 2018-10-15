@@ -7,7 +7,8 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import LogInScreen from '../screens/LogInScreen';
+import LogInScreen from '../screens/login/LogInScreen';
+import SignupScreen from '../screens/login/SignUpScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -69,9 +70,26 @@ LogInStack.navigationOptions = {
   ),
 };
 
+const SignInStack = createStackNavigator({
+  Signup: SignupScreen,
+});
+
+SignInStack.navigationOptions = {
+  tabBarLabel: 'Sign Up',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
+
+
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   LogInStack,
+  SignInStack,
   SettingsStack,
 });

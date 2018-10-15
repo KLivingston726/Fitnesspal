@@ -3,7 +3,7 @@ import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
-import LogInScreen from '../screens/LogInScreen';
+import LogInScreen from '../screens/login/LogInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen';
 
