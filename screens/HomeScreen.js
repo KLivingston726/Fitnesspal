@@ -22,23 +22,26 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
+            <Text style={styles.getStartedText}>
+            Welcome
             <Image
               source={
                 __DEV__
-                  ? require('../assets/images/robot-dev.png')
+                  ? require('../assets/images/chad.jpg')
                   : require('../assets/images/robot-prod.png')
               }
               style={styles.welcomeImage}
             />
+            </Text>
           </View>
-
+          
+          
           <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text style={styles.getStartedText}>Get started by opening</Text>
+            <Text style={styles.getStartedText}>Welcome to FitnessPal</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+              <MonoText style={styles.codeHighlightText}>Date: 10/11/2018</MonoText>
             </View>
 
             <Text style={styles.getStartedText}>
@@ -50,11 +53,18 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
               <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
             </TouchableOpacity>
+
+            {this._maybeRenderDevelopmentModeWarning()}
+            {this._RobbieInfoPage()}
+
+            <Text style={styles.RobbieName}>
+              FitnessPal
+            </Text>
           </View>
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+          <Text style={styles.tabBarInfoText}>Use the tabs below to navigate the menus:</Text>
 
           <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
@@ -87,8 +97,30 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  _RobbieInfoPage() {
+    if (__DEV__) {
+      const learnMoreRobbie = (
+        <Text onPress={this._handleRobbieInfoPress} style={styles.helpLinkText}>
+          Here
+        </Text>
+      );
+
+      return (
+        <Text style={styles.developmentModeText}>
+          For more info on Robbie click {learnMoreRobbie}
+        </Text>
+      );
+    } else {
+
+    }
+  }
+
   _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+  };
+
+  _handleRobbieInfoPress = () => {
+    WebBrowser.openBrowserAsync('https://htmlcolorcodes.com/color-chart/');
   };
 
   _handleHelpPress = () => {
@@ -101,11 +133,11 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#922B21',
   },
   developmentModeText: {
     marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
+    color: 'rgba(200,200,200,200.4)',
     fontSize: 14,
     lineHeight: 19,
     textAlign: 'center',
@@ -113,37 +145,44 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 30,
   },
+  getStartedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 20,
+  },
+  homeScreenFilename: {
+    marginVertical: 7,
+  },
+  codeHighlightText: {
+    color: 'rgba(100,100,100,100.4)',
+  },
+  codeHighlightContainer: {
+    backgroundColor: 'rgba(200,200,200,200.4)',
+    borderRadius: 3,
+    paddingHorizontal: 4,
+  },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: 375,
+    height: 250,
     resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
+    marginTop: 0,
+    marginLeft: 0,
   },
   getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    fontSize: 25,
+    color: 'rgba(00,10,20,40)',
     lineHeight: 24,
+    textAlign: 'center',
+  },
+  RobbieName: {
+    marginBottom: 10,
+    color: 'rgba(200,200,200,200.4)',
+    fontSize: 14,
+    lineHeight: 30,
     textAlign: 'center',
   },
   tabBarInfoContainer: {
@@ -164,11 +203,11 @@ const styles = StyleSheet.create({
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   tabBarInfoText: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    color: 'rgba(100,100,100, 1)',
     textAlign: 'center',
   },
   navigationFilename: {
@@ -182,6 +221,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   helpLinkText: {
+    marginTop: 50,
     fontSize: 14,
     color: '#2e78b7',
   },
