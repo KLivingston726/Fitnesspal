@@ -7,15 +7,27 @@ import {
   Text,
   TouchableOpacity,
   View,
+  InteractionManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import * as FirebaseAPI from '../modules/firebaseAPI';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+
+  logout(navigation) {
+    console.log('logout() called');
+    FirebaseAPI.logoutUser();
+
+    InteractionManager.runAfterInteractions(() => {
+      navigation.navigate('Auth')
+    })
+  }
 
   render() {
     return (
@@ -34,8 +46,8 @@ export default class HomeScreen extends React.Component {
             />
             </Text>
           </View>
-          
-          
+
+
           <View style={styles.getStartedContainer}>
 
             <Text style={styles.getStartedText}>Welcome to FitnessPal</Text>
@@ -64,11 +76,9 @@ export default class HomeScreen extends React.Component {
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Use the tabs below to navigate the menus:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
+          <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
+            <Text style={styles.tabBarInfoText}>Logout</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

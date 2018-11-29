@@ -3,7 +3,21 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
+import * as firebase from 'firebase';
+
+var config = {
+  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
+  authDomain: "myfitness425-426.firebaseapp.com",
+  databaseURL: "https://myfitness425-426.firebaseio.com",
+  projectId: "myfitness425-426",
+  storageBucket: "myfitness425-426.appspot.com",
+  messagingSenderId: "27583195048"
+};
+
+firebase.initializeApp(config);
+
 export default class App extends React.Component {
+
   state = {
     isLoadingComplete: false,
   };

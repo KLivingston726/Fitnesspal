@@ -1,44 +1,144 @@
-import React, {Component} from 'react';
-import {Image, StyleSheet,View, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import SignUpForm from './SignUpForm';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  StatusBar
+ } from 'react-native';
+import firebase from 'firebase'
+import * as FirebaseAPI from '../../modules/firebaseAPI';
 
+export default class LoginScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default class SignUpScreen extends React.Component {
-    static navigationOptions = {
-        header: null,
-      };
+  static navigationOptions = {
+    title: 'Login',
+  };
 
-      render(){
-        return(
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-              <View style={styles.signupContainer}>
+  state = {
+    email: "",
+    password: ""
+  };
 
-                <Text style={styles.title}>Sign Up</Text>
-              </View>
+  componentDidMount() {
+    this.watchAuthState(this.props.navigation)
+  }
 
-                <View style={styles.formContainer}>
-                  <SignUpForm />
-                </View>
-            </KeyboardAvoidingView>
+  watchAuthState(navigation) {
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log('onAuthStatheChanged: ', user)
 
-        );
+      if (user) {
+        navigation.navigate('Main');
       }
+    });
+  }
+
+  createUser() {
+    FirebaseAPI.createUser(this.state.email, this.state.password)
+  }
+
+  signIn() {
+    FirebaseAPI.signinUser(this.state.email, this.state.password)
+  }
+
+  render() {
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <View style={styles.signupContainer}>
+          <Text style={styles.title}>Login</Text>
+        </View>
+
+        <View>
+            <StatusBar barStyle="light-content" />
+
+          <TextInput
+          style={styles.textInput}
+            placeholder= "Email"
+            placeholderTextColor="rgba(255,255,255,0.7)"
+            returnKeyType="next"
+            onSubmitEditing={() => this.emailInput.focus()}
+            autoCorrect={false}
+
+            onChangeText={(text) => this.setState({email: text})}
+            value={this.state.email}
+
+          />
+          <TextInput
+            placeholder= "Password"
+            placeholderTextColor="rgba(255,255,255,0.7)"
+            returnKeyType="next"
+            secureTextEntry
+            style={styles.textInput}
+            ref={(input) => this.emailInput = input}
+            onChangeText={(text) => this.setState({password: text})}
+            value={this.state.password}
+          />
+
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.signIn()}
+          >
+            <View>
+              <Text style={styles.buttonText}>Log In Existing</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => this.createUser()}
+          >
+            <View>
+              <Text style={styles.buttonText}>Create New User</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#3498DB',
-    },
-    signupContainer: {
-      alignItems: 'center',
-      flexGrow: 1,
-      justifyContent: 'center',
-    },
-    title: {
-      color: '#FFF',
-      textAlign: 'center',
-      fontSize: 40,
-    },
-
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#3498DB',
+  },
+  signupContainer: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  title: {
+    color: '#FFF',
+    textAlign: 'center',
+    fontSize: 40,
+  },
+  textInput: {
+    height: 40,
+    //backgroundColor: 'rgba(255,255,255,0.3)',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.3)',
+    marginBottom: 10,
+    color: "#FFF",
+    paddingHorizontal: 10,
+    fontSize: 15,
+  },
+  buttonContainer: {
+     marginTop: 30,
+     backgroundColor: '#2874A6',
+     paddingVertical: 12,
+   },
+   buttonText: {
+     textAlign: 'center',
+     color: '#FFF',
+     fontWeight: '500',
+   }
+});
