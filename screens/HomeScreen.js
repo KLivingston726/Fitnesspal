@@ -29,60 +29,65 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.getStartedText}>
-            Welcome
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/chad.jpg')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-            </Text>
-          </View>
-
-
-          <View style={styles.getStartedContainer}>
-
-            <Text style={styles.getStartedText}>Welcome to FitnessPal</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>Date: 10/11/2018</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-
-            {this._maybeRenderDevelopmentModeWarning()}
-            {this._RobbieInfoPage()}
-
-            <Text style={styles.RobbieName}>
-              FitnessPal
-            </Text>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
-            <Text style={styles.tabBarInfoText}>Logout</Text>
-          </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.welcomeContainer}>
+          <Text style={styles.getStartedText}>
+          Welcome
+          <Image
+            source={
+              __DEV__
+                ? require('../assets/images/chad.jpg')
+                : require('../assets/images/robot-prod.png')
+            }
+            style={styles.welcomeImage}
+          />
+          </Text>
         </View>
+
+
+        <View style={styles.getStartedContainer}>
+
+          <Text style={styles.getStartedText}>Welcome to FitnessPal</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <MonoText style={styles.codeHighlightText}>Date: 10/11/2018</MonoText>
+          </View>
+
+          <Text style={styles.getStartedText}>
+            Change this text and your app will automatically reload.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+          </TouchableOpacity>
+
+          {this._maybeRenderDevelopmentModeWarning()}
+          {this._RobbieInfoPage()}
+
+          <Text style={styles.RobbieName}>
+            FitnessPal
+          </Text>
+        </View>
+      </ScrollView>
+
+      <View style={styles.tabBarInfoContainer}>
+        <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
+          <Text style={styles.tabBarInfoText}>Logout</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
+}
+
 
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
@@ -143,7 +148,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#922B21',
+    backgroundColor: '#3498DB',
   },
   developmentModeText: {
     marginBottom: 20,
@@ -184,9 +189,16 @@ const styles = StyleSheet.create({
   },
   getStartedText: {
     fontSize: 25,
-    color: 'rgba(00,10,20,40)',
+    color: '#fff',
     lineHeight: 24,
     textAlign: 'center',
+  },
+  textContainer: {
+    fontSize: 25,
+    color: '#fff',
+    lineHeight: 24,
+    textAlign: 'center',
+    marginTop: 20,
   },
   RobbieName: {
     marginBottom: 10,
