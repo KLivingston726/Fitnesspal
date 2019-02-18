@@ -6,13 +6,18 @@ import MainTabNavigator from './MainTabNavigator';
 import SignUpScreen from '../screens/login/SignUpScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
+//Test screen
+import WorkoutSheetTest from '../screens/WorkoutSheetTest';
+
 // const AppStackNavigator = createStackNavigator({
 //   LogIn: LogInScreen,
 //   SignUp: SignUpScreen,
 //   Home: HomeScreen
 // });
 
-const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
+const AuthStackNavigator = createStackNavigator({TEST: WorkoutSheetTest});
+
+//const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
 
 
 //The order you make this is the way it loads in for the app

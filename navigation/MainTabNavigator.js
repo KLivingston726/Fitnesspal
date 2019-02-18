@@ -10,6 +10,9 @@ import SignUpScreen from '../screens/SignUpScreen';
 import LogInScreen from '../screens/login/LogInScreen';
 import SignupScreen from '../screens/login/SignUpScreen';
 
+//TEST SCREENS
+import WorkoutSheetTest from '../screens/WorkoutSheetTest';
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -83,6 +86,8 @@ SignInStack.navigationOptions = {
     />
   ),
 };
+
+
 
 
 
