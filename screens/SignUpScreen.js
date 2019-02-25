@@ -10,7 +10,7 @@ import {
   StatusBar
  } from 'react-native';
 import firebase from 'firebase'
-import * as FirebaseAPI from '../../modules/firebaseAPI';
+import * as FirebaseAPI from '../modules/firebaseAPI';
 
 var config = {
   apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",

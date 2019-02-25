@@ -6,6 +6,7 @@ export default class WorkoutSheet extends Component {
         super(props);
         this.state = { 
             exercise: 'Enter Exercise Here',
+            weight: 'Enter weight Here',
             sets: 'Enter Number Of Sets',
             reps: 'Enter Number Of Repitions',
             instructions: 'Instructions For Workout'
