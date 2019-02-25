@@ -12,17 +12,6 @@ import {
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
 
-var config = {
-  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
-  authDomain: "myfitness425-426.firebaseapp.com",
-  databaseURL: "https://myfitness425-426.firebaseio.com",
-  projectId: "myfitness425-426",
-  storageBucket: "myfitness425-426.appspot.com",
-  messagingSenderId: "27583195048"
-};
-
-firebase.initializeApp(config);
-// Get a reference to the database service
 
 const database = firebase.database().ref();
 const userRef = database.child('users');
@@ -37,7 +26,7 @@ export default class LoginScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Sign Up',
+    title: 'Login',
   };
 
 
@@ -57,20 +46,15 @@ export default class LoginScreen extends React.Component {
   }
 
 
-
-  createUser() {
-    FirebaseAPI.createUser(this.state.email, this.state.password)
-    userRef.push({
-      email: this.state.email,
-      password: this.state.password
-    })
+  signIn() {
+    FirebaseAPI.signinUser(this.state.email, this.state.password)
   }
 
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.signupContainer}>
-          <Text style={styles.title}>Create User</Text>
+          <Text style={styles.title}>Login</Text>
         </View>
 
         <View>
@@ -101,13 +85,12 @@ export default class LoginScreen extends React.Component {
             value={this.state.password}
           />
           <View style={styles.totalButtonContainer}>
-
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={() => this.createUser()}
+              onPress={() => this.signIn()}
             >
               <View>
-                <Text style={styles.buttonText}>Create</Text>
+                <Text style={styles.buttonText}>Log In Existing</Text>
               </View>
             </TouchableOpacity>
           </View>
