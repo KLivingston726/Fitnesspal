@@ -6,13 +6,15 @@ import MainTabNavigator from './MainTabNavigator';
 import SignUpScreen from '../screens/SignUpScreen';
 import SigninScreen from '../screens/SigninScreen';
 import SplashScreen from '../screens/SplashScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 //Test screen
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
 
 
-const AuthStackNavigator = createStackNavigator({Splash: SplashScreen, Login: SigninScreen, Signin: SignUpScreen});
+const AuthStackNavigator = createStackNavigator({Splash: SplashScreen, Login: SigninScreen, Signin: SignUpScreen,
+                                                ForgotPassword: ForgotPasswordScreen});
 //const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
 
 

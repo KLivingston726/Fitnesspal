@@ -50,6 +50,10 @@ export default class LoginScreen extends React.Component {
     FirebaseAPI.signinUser(this.state.email, this.state.password)
   }
 
+  _showForgotPassword = () => {
+    this.props.navigation.navigate('ForgotPassword');
+  };
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -93,6 +97,14 @@ export default class LoginScreen extends React.Component {
                 <Text style={styles.buttonText}>Log In Existing</Text>
               </View>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this._showForgotPassword}
+            >
+              <View>
+                <Text style={styles.forgotPasswordButton}>Forgot Password?</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -128,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   totalButtonContainer: {
-    marginBottom: 10,
+    marginBottom: 40,
   },
   buttonContainer: {
     marginVertical: 5,
@@ -139,5 +151,12 @@ const styles = StyleSheet.create({
      textAlign: 'center',
      color: '#FFF',
      fontWeight: '500',
+   },
+   forgotPasswordButton: {
+     marginTop: 10,
+     textAlign: 'center',
+     color: '#FFF',
+     fontWeight: '500',
    }
+
 });
