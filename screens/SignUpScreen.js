@@ -57,7 +57,7 @@ export default class LoginScreen extends React.Component {
   }
 
 
-
+  //Add additional states for name age height weight ect.
   createUser() {
     FirebaseAPI.createUser(this.state.email, this.state.password)
     userRef.push({
