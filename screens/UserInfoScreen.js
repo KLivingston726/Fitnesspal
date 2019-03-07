@@ -15,8 +15,67 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import firebase from 'firebase'
+import * as FirebaseAPI from '../modules/firebaseAPI';
+
+var config = {
+  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
+  authDomain: "myfitness425-426.firebaseapp.com",
+  databaseURL: "https://myfitness425-426.firebaseio.com",
+  projectId: "myfitness425-426",
+  storageBucket: "myfitness425-426.appspot.com",
+  messagingSenderId: "27583195048"
+};
+
+//firebase.initializeApp(config);
+// Get a reference to the database service
+
+const database = firebase.database().ref();
+const userRef = database.child('users');
 
 export default class UserInfoScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      firstName: "",
+      lastName: "",
+      age: "",
+      height: "",
+      weight: "",
+      sex: ""
+    });
+  }
+
+  componentDidMount() {
+    this.watchAuthState(this.props.navigation)
+  }
+
+  watchAuthState(navigation) {
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log('onAuthStatheChanged: ', user);
+      console.log('userID: ', user.uid);
+
+      if (user) {
+        navigation.navigate('Main');
+      }
+    });
+  }
+
+
+  //Add additional states for name age height weight ect.
+  createUser() {
+    FirebaseAPI.createUser(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
+    userRef.push({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      age: this.state.age,
+      height: this.state.height,
+      weight: this.state.weight,
+      sex: this.state.sex
+    })
+  }
+
+
     static navigationOptions = {
         header: null,
       };
@@ -32,11 +91,15 @@ export default class UserInfoScreen extends React.Component {
                 <StatusBar barStyle="light-content" />
     
               <TextInput
-                style={styles.textInput}
                 placeholder= "First Name"
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 returnKeyType="next"
                 autoCapitalize="none"
+                style={styles.textInput}
+                onSubmitEditing={() => this.emailInput.focus()}
+                autoCorrect={false}
+                onChangeText={(text) => this.setState({firstName: text})}
+                value={this.state.firstName}
                 
     
               />
@@ -46,7 +109,9 @@ export default class UserInfoScreen extends React.Component {
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
-                
+                ref={(input) => this.emailInput = input}
+                onChangeText={(text) => this.setState({lastName: text})}
+                value={this.state.lastName}
               />
               <TextInput
                 placeholder= "Age"
@@ -54,7 +119,9 @@ export default class UserInfoScreen extends React.Component {
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
-                
+                ref={(input) => this.emailInput = input}
+                onChangeText={(text) => this.setState({age: text})}
+                value={this.state.age}
               />
               <TextInput
                 placeholder= "Height (Ex: 6ft 1in)"
@@ -62,7 +129,9 @@ export default class UserInfoScreen extends React.Component {
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
-                
+                ref={(input) => this.emailInput = input}
+                onChangeText={(text) => this.setState({height: text})}
+                value={this.state.height}
               />
               <TextInput
                 placeholder= "Weight (lbs)"
@@ -70,7 +139,9 @@ export default class UserInfoScreen extends React.Component {
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
-                
+                ref={(input) => this.emailInput = input}
+                onChangeText={(text) => this.setState({weight: text})}
+                value={this.state.weight}
               />
               <TextInput
                 placeholder= "Sex"
@@ -78,12 +149,14 @@ export default class UserInfoScreen extends React.Component {
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
-                
+                ref={(input) => this.emailInput = input}
+                onChangeText={(text) => this.setState({sex: text})}
+                value={this.state.sex}
               />
               <View style={styles.totalButtonContainer}>
                 <TouchableOpacity
                   style={styles.buttonContainer}
-                  onPress={this._showLogin}
+                  onPress={() => this.createUser()}
                 >
                   <View>
                     <Text style={styles.buttonText}>SAVE SETTINGS</Text>
