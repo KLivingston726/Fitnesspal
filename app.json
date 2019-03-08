@@ -1,18 +1,18 @@
 {
   "expo": {
     "name": "FitnessPal",
-    "description": "A very interesting project.",
-    "slug": "FitnessPal",
+    "description": "User Settings",
+    "slug": "React-Native Project",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/robot-dev.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/loading.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#5499C7"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

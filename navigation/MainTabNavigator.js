@@ -8,10 +8,10 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignUpScreen';
+import UserInfoScreen from '../screens/UserInfoScreen';
 
 //TEST SCREENS
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
-
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -23,8 +23,7 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-home${focused ? '' : '-outline'}`: 'ios-home'
       }
     />
   ),
@@ -54,7 +53,7 @@ WorkoutSheetStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-add-circle${focused ? '' : '-outline'}` : 'ios-add-circle'}
     />
   ),
 };
@@ -74,11 +73,26 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const UserInfoStack = createStackNavigator({
+  UserInfo: UserInfoScreen,
+});
+
+UserInfoStack.navigationOptions = {
+  tabBarLabel: 'User Info',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
+
 
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
   WorkoutSheetStack,
+  UserInfoStack,
+  //LinksStack,
+  //SettingsStack,
 });

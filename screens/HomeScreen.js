@@ -29,65 +29,56 @@ export default class HomeScreen extends React.Component {
     })
   }
 
-  static navigationOptions = {
-    title: 'Home',
-  };
-
   render() {
-  return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.getStartedText}>
-          Welcome
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/chad.jpg')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-          </Text>
-        </View>
-
-
-        <View style={styles.getStartedContainer}>
-
-          <Text style={styles.getStartedText}>Welcome to FitnessPal</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText style={styles.codeHighlightText}>Date: 10/11/2018</MonoText>
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.getStartedText}>
+            Welcome
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/chad.jpg')
+                  : require('../assets/images/robot-prod.png')
+              }
+              style={styles.welcomeImage}
+            />
+            </Text>
           </View>
 
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+          <View style={styles.getStartedContainer}>
+
+            <Text style={styles.getStartedText}>Welcome to WorkoutMate</Text>
+
+            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              <MonoText style={styles.codeHighlightText}>Proffesional Trainer</MonoText>
+            </View>
+          </View>
+
+          <View style={styles.helpContainer}>
+            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+              <MonoText style={styles.codeHighlightContainer}>Click here to check the Weather</MonoText>
+            </TouchableOpacity>
+
+            {this._maybeRenderDevelopmentModeWarning()}
+            {this._RobbieInfoPage()}
+
+            <Text style={styles.RobbieName}>
+            _____________________________________________________________
+            </Text>
+          </View>
+        </ScrollView>
+
+        <View style={styles.tabBarInfoContainer}>
+          <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
+            <Text style={styles.tabBarInfoText}>Logout</Text>
           </TouchableOpacity>
-
-          {this._maybeRenderDevelopmentModeWarning()}
-          {this._RobbieInfoPage()}
-
-          <Text style={styles.RobbieName}>
-            FitnessPal
-          </Text>
         </View>
-      </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
-          <Text style={styles.tabBarInfoText}>Logout</Text>
-        </TouchableOpacity>
       </View>
-    </View>
-  );
-}
-
+    );
+  }
 
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
@@ -99,14 +90,9 @@ export default class HomeScreen extends React.Component {
 
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
+          _____________________________________________________________
+          For information on this weeks events and trainer availibility hit the learn more
+          button. {learnMoreButton} _____________________________________________________________
         </Text>
       );
     }
@@ -116,17 +102,16 @@ export default class HomeScreen extends React.Component {
     if (__DEV__) {
       const learnMoreRobbie = (
         <Text onPress={this._handleRobbieInfoPress} style={styles.helpLinkText}>
-          Here
+          Article
         </Text>
       );
 
       return (
         <Text style={styles.developmentModeText}>
-          For more info on Robbie click {learnMoreRobbie}
+          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com! {learnMoreRobbie}
         </Text>
       );
     } else {
-
     }
   }
 
@@ -135,12 +120,12 @@ export default class HomeScreen extends React.Component {
   };
 
   _handleRobbieInfoPress = () => {
-    WebBrowser.openBrowserAsync('https://htmlcolorcodes.com/color-chart/');
+    WebBrowser.openBrowserAsync('https://8fit.com/fitness/meal-plan-muscle-gain-much-protein-really-need/');
   };
 
   _handleHelpPress = () => {
     WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+      'https://weather.com/?cm_ven=PS_GGL_Channel_9102015_1&par=MK_GGL&gclid=Cj0KCQiA6JjgBRDbARIsANfu58H-tIlwB141oX587VX4ic04MThavIgcG-7dIUYs7rlNmUO06Vct98YaAvXMEALw_wcB'
     );
   };
 }
@@ -148,7 +133,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: '#5499C7',
   },
   developmentModeText: {
     marginBottom: 20,
@@ -162,7 +147,8 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 20,
+    marginTop: 0,
+    marginHorizontal: 10,
   },
   homeScreenFilename: {
     marginVertical: 7,
@@ -171,7 +157,7 @@ const styles = StyleSheet.create({
     color: 'rgba(100,100,100,100.4)',
   },
   codeHighlightContainer: {
-    backgroundColor: 'rgba(200,200,200,200.4)',
+    backgroundColor: '#7F8C8D',
     borderRadius: 3,
     paddingHorizontal: 4,
   },
@@ -189,16 +175,13 @@ const styles = StyleSheet.create({
   },
   getStartedText: {
     fontSize: 25,
-    color: '#fff',
+    fontFamily: 'Times New Roman',
+    textDecorationLine: 'underline',
+    color: 'rgba(00,10,20,40)',
+    lineHeight: 1.8,
+    marginTop: 0,
     lineHeight: 24,
     textAlign: 'center',
-  },
-  textContainer: {
-    fontSize: 25,
-    color: '#fff',
-    lineHeight: 24,
-    textAlign: 'center',
-    marginTop: 20,
   },
   RobbieName: {
     marginBottom: 10,
@@ -224,7 +207,7 @@ const styles = StyleSheet.create({
       },
     }),
     alignItems: 'center',
-    backgroundColor: '#fbfbfb',
+    backgroundColor: '#5DADE2',
     paddingVertical: 10,
   },
   tabBarInfoText: {
@@ -236,15 +219,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   helpContainer: {
-    marginTop: 15,
+    marginTop: 115,
     alignItems: 'center',
   },
   helpLink: {
     paddingVertical: 15,
   },
+  //Text link color
   helpLinkText: {
     marginTop: 50,
     fontSize: 14,
-    color: '#2e78b7',
+    color: '#641E16',
   },
 });
