@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   View,
   Text,
   StyleSheet,
@@ -9,6 +10,8 @@ import {
   KeyboardAvoidingView,
   StatusBar
  } from 'react-native';
+ import firebase from 'firebase'
+ import * as FirebaseAPI from '../modules/firebaseAPI';
 
 export default class ForgotPasswordScreen extends React.Component {
   constructor(props) {
@@ -19,8 +22,13 @@ export default class ForgotPasswordScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'ForgotPassword',
+    title: 'Forgot Password',
   };
+
+
+  forgotPassword() {
+    FirebaseAPI.forgotPassword(this.state.email)
+  }
 
   render() {
     return (
@@ -29,7 +37,7 @@ export default class ForgotPasswordScreen extends React.Component {
 
         <View style={styles.signupContainer}>
           <Image
-            source={'../images/lock.png'}
+            source={require('../assets/images/lock.png')}
             style={styles.image}
           />
 
@@ -40,10 +48,24 @@ export default class ForgotPasswordScreen extends React.Component {
 
         <View>
             <StatusBar barStyle="light-content" />
+
+            <TextInput
+            style={styles.textInput}
+              placeholder= "Email"
+              placeholderTextColor="rgba(255,255,255,0.7)"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onSubmitEditing={() => this.emailInput.focus()}
+              autoCorrect={false}
+
+              onChangeText={(text) => this.setState({email: text})}
+              value={this.state.email}
+
+            />
           <View style={styles.totalButtonContainer}>
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={this._showLogin}
+              onPress={() => this.forgotPassword()}
             >
               <View>
                 <Text style={styles.buttonText}>Reset Password</Text>
@@ -72,9 +94,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
     textAlign: 'center',
     fontSize: 40,
+    marginVertical: 10,
   },
   text: {
-    marginTop: 20,
     width: 280,
     color: '#FFF',
     fontSize: 20,
@@ -97,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   totalButtonContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
   buttonContainer: {
     marginVertical: 5,

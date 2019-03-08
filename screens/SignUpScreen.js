@@ -60,10 +60,11 @@ export default class LoginScreen extends React.Component {
 
   createUser() {
     FirebaseAPI.createUser(this.state.email, this.state.password)
-    userRef.push({
-      email: this.state.email,
-      password: this.state.password
-    })
+      userRef.push({
+        email: this.state.email,
+        password: this.state.password
+      })
+
   }
 
   render() {

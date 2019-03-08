@@ -16,3 +16,9 @@ export const signinUser = (email, password) => {
 export const logoutUser = () => {
   firebase.auth().signOut();
 }
+
+export const forgotPassword = (email) => {
+  console.log('forgotPassword called');
+  firebase.auth().sendPasswordResetEmail(email)
+    .catch((error) => console.log('Forgot Password User Error: ', error));
+}
