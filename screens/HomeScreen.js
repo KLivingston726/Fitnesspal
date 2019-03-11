@@ -10,9 +10,13 @@ import {
   InteractionManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
 import { MonoText } from '../components/StyledText';
 import * as FirebaseAPI from '../modules/firebaseAPI';
+import firebase from 'firebase';
+
+
+//const database = firebase.database().ref();
+//const userRef = database.child('users/' + firebase.auth().currentUser.uid);
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -142,6 +146,14 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     textAlign: 'center',
   },
+  button: {
+    color: '#FFF',
+    backgroundColor: 'rgba(200,200,200,200.4)',
+    fontSize: 14,
+    lineHeight: 19,
+    textAlign: 'center',
+    padding: 10,
+  },
   contentContainer: {
     paddingTop: 30,
   },
@@ -177,7 +189,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: 'Times New Roman',
     textDecorationLine: 'underline',
-    color: 'rgba(00,10,20,40)',
+    color: '#000',
+    backgroundColor: '#FFF',
     lineHeight: 1.8,
     marginTop: 0,
     lineHeight: 24,

@@ -24,6 +24,7 @@ var config = {
 firebase.initializeApp(config);
 // Get a reference to the database service
 
+
 const database = firebase.database().ref();
 const userRef = database.child('users');
 
