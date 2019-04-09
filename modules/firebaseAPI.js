@@ -7,10 +7,10 @@ export const createUser = (email, password) => {
 
 }
 
-
-//export const userInfo = (firstName, lastName, age, height, weight, sex) => {
-//  console.log('userInfo called');
-//}
+export const userInfo = (firstName, lastName, age, height, weight, sex) => {
+  console.log('userInfo called');
+  
+}
 
 export const signinUser = (email, password) => {
   console.log('signinUser called');

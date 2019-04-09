@@ -33,6 +33,12 @@ var config = {
 const database = firebase.database().ref();
 const userRef = database.child('users');
 
+var user = firebase.auth().currentUser;
+
+if (user != null) {
+  uid = user.uid;
+}
+
 export default class UserInfoScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -46,6 +52,14 @@ export default class UserInfoScreen extends React.Component {
     });
   }
 
+  static navigationOptions = {
+    title: 'Profile Screen',
+  };
+
+  _showLogin = () => {
+    this.props.navigation.navigate('Main');
+  };
+
   componentDidMount() {
     this.watchAuthState(this.props.navigation)
   }
@@ -53,18 +67,33 @@ export default class UserInfoScreen extends React.Component {
   watchAuthState(navigation) {
     firebase.auth().onAuthStateChanged(function(user) {
       console.log('onAuthStatheChanged: ', user);
-      console.log('userID: ', user.uid);
+      console.log('userID 101: ', user.uid);
 
       if (user) {
-        navigation.navigate('Main');
+        //navigation.navigate('Main');
+      } else {
+
       }
     });
   }
 
+  userInfo() {
+    FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
+    var user = firebase.auth().currentUser;
+    firebase.database().ref('/users/'+user.uid).push({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      age: this.state.age,
+      height: this.state.height,
+      weight: this.state.weight,
+      sex: this.state.sex
+    });
+  }
 
+/*
   //Add additional states for name age height weight ect.
-  createUser() {
-    FirebaseAPI.createUser(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
+  userInfo() {
+    FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
     userRef.push({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -74,7 +103,7 @@ export default class UserInfoScreen extends React.Component {
       sex: this.state.sex
     })
   }
-
+   */
 
     static navigationOptions = {
         header: null,
@@ -156,7 +185,7 @@ export default class UserInfoScreen extends React.Component {
               <View style={styles.totalButtonContainer}>
                 <TouchableOpacity
                   style={styles.buttonContainer}
-                  onPress={() => this.createUser()}
+                  onPress={() => this.userInfo()}
                 >
                   <View>
                     <Text style={styles.buttonText}>SAVE SETTINGS</Text>

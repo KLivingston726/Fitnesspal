@@ -51,6 +51,7 @@ export default class LoginScreen extends React.Component {
       console.log('onAuthStatheChanged: ', user);
       //console.log('userID: ', user.uid);
 
+      //???? Do we need this????
       if (user) {
         navigation.navigate('Main');
       }
