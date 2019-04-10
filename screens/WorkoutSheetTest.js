@@ -10,43 +10,37 @@ import {
   InteractionManager,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
+import WorkoutSheet from '../components/WorkoutSheet'
 import { MonoText } from '../components/StyledText';
 
 export default class WorkoutSheetTest extends React.Component {
-    static navigationOptions = {
-        header: null,
-      };
-
-      createWorkout(){
-        
-      }
+    constructor(props) {
+        super(props);
+        this.state =({
+            exercise: "",
+            weight: "",
+            sets: "",
+            reps: "",
+            instructions: "",
+        });
+    }
 
       render(){
           return(
             <View style = {styles.container}>
-                <TouchableOpacity 
-                    style = {styles.button}
-                    onPress={() => this.createWorkout()}
-                >
-                    
-                    <Text>Add new Workout</Text>
-                </TouchableOpacity>
+                <WorkoutSheet />
             </View>
-
           );
-
       }
-
-
 }
 
 //Blank screen for Test purposes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         backgroundColor: '#3498DB',
+        padding: 20,
         alignItems: 'center'
     },
 
@@ -60,5 +54,4 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         borderColor: '#fff',
     }
-
 });
