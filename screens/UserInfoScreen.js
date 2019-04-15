@@ -129,8 +129,6 @@ export default class UserInfoScreen extends React.Component {
                 autoCorrect={false}
                 onChangeText={(text) => this.setState({firstName: text})}
                 value={this.state.firstName}
-                
-    
               />
               <TextInput
                 placeholder= "Last Name"

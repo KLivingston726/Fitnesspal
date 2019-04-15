@@ -24,17 +24,30 @@ export default class WorkoutSheetTest extends React.Component {
             instructions: "",
         });
     }
+  
+    static navigationOptions = {
+        title: 'WorkoutSheet',
+    };
+
+    _showWOcreate = () => {
+        this.props.navigation.navigate('WOcreate');
+    }
 
       render(){
           return(
             <View style = {styles.container}>
-                <WorkoutSheet />
+                <ScrollView style = {styles.scrollContainer}>
+                    <WorkoutSheet/>
+                </ScrollView>
+
+                <TouchableOpacity onPress={this._showWOcreate}>
+                    <Text style = {styles.createButton}>+</Text>
+                </TouchableOpacity>
             </View>
           );
       }
 }
 
-//Blank screen for Test purposes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -43,7 +56,6 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: 'center'
     },
-
     button: {
         borderWidth: 1,
         alignItems: 'center',
@@ -53,5 +65,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#3498DB',
         borderRadius: 100,
         borderColor: '#fff',
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    createButton: {
+        fontSize: 36,
     }
 });
