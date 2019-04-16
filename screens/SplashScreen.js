@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   StatusBar
  } from 'react-native';
+ import RectangleButton from '../components/RectangleButton';
 
 export default class SplashScreen extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class SplashScreen extends React.Component {
 
   _showSignin = () => {
     this.props.navigation.navigate('Signin');
+    console.log("create");
   };
 
   render() {
@@ -40,25 +42,19 @@ export default class SplashScreen extends React.Component {
 
         <View>
             <StatusBar barStyle="light-content" />
-
           <View style={styles.totalButtonContainer}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={this._showLogin}
-            >
-              <View>
-                <Text style={styles.buttonText}>Log In Existing</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={this._showSignin}
-            >
-              <View>
-                <Text style={styles.buttonText}>Create New User</Text>
-              </View>
-            </TouchableOpacity>
+            <RectangleButton
+              text="Log In Existing"
+              color="#FFF"
+              backgroundColor="#2874A6"
+              handleOnPress={this._showLogin}
+            />
+            <RectangleButton
+              text="Create New User"
+              color="#FFF"
+              backgroundColor="#2874A6"
+              handleOnPress={this._showSignin}
+            />
           </View>
         </View>
 
@@ -82,28 +78,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 40,
   },
-  textInput: {
-    height: 40,
-    //backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.3)',
-    marginBottom: 10,
-    color: "#FFF",
-    paddingHorizontal: 10,
-    fontSize: 15,
-  },
   totalButtonContainer: {
-    marginBottom: 10,
+    marginBottom: 30,
   },
-  buttonContainer: {
-    marginVertical: 5,
-    backgroundColor: '#2874A6',
-    paddingVertical: 12,
-   },
-   buttonText: {
-     textAlign: 'center',
-     color: '#FFF',
-     fontWeight: '500',
-   }
+
 });

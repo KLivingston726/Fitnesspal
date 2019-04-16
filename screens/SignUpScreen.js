@@ -12,19 +12,6 @@ import {
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
 
-var config = {
-  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
-  authDomain: "myfitness425-426.firebaseapp.com",
-  databaseURL: "https://myfitness425-426.firebaseio.com",
-  projectId: "myfitness425-426",
-  storageBucket: "myfitness425-426.appspot.com",
-  messagingSenderId: "27583195048"
-};
-
-firebase.initializeApp(config);
-// Get a reference to the database service
-
-
 const database = firebase.database().ref();
 const userRef = database.child('users');
 

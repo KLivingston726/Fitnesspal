@@ -17,15 +17,7 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
-
-var config = {
-  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
-  authDomain: "myfitness425-426.firebaseapp.com",
-  databaseURL: "https://myfitness425-426.firebaseio.com",
-  projectId: "myfitness425-426",
-  storageBucket: "myfitness425-426.appspot.com",
-  messagingSenderId: "27583195048"
-};
+import InputField from '../components/InputField';
 
 //firebase.initializeApp(config);
 // Get a reference to the database service
@@ -90,6 +82,18 @@ export default class UserInfoScreen extends React.Component {
     });
   }
 
+  validateInputs(text, type) {
+    let numreg = /^[0-9]+$/;
+      if (type == 'age') {
+        if (numreg.test(text)) {
+          this.setState({age: text})
+        } else {
+
+        }
+      }
+  }
+
+
 /*
   //Add additional states for name age height weight ect.
   userInfo() {
@@ -115,10 +119,10 @@ export default class UserInfoScreen extends React.Component {
             <View style={styles.signupContainer}>
               <Text style={styles.title}>Profile Information</Text>
             </View>
-    
+
             <View>
                 <StatusBar barStyle="light-content" />
-    
+
               <TextInput
                 placeholder= "First Name"
                 placeholderTextColor="rgba(255,255,255,0.7)"
@@ -127,8 +131,12 @@ export default class UserInfoScreen extends React.Component {
                 style={styles.textInput}
                 onSubmitEditing={() => this.emailInput.focus()}
                 autoCorrect={false}
-                onChangeText={(text) => this.setState({firstName: text})}
+                onChangeText={
+                  (text) => this.validateInputs(text, 'username')
+                }
                 value={this.state.firstName}
+
+
               />
               <TextInput
                 placeholder= "Last Name"
@@ -191,12 +199,12 @@ export default class UserInfoScreen extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-    
+
           </KeyboardAvoidingView>
         );
       }
     }
-    
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,
