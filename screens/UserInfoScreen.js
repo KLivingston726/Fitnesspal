@@ -17,15 +17,7 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
-
-var config = {
-  apiKey: "AIzaSyCRxDbi-2PcePKWn8IBccNFpoSDknlcmOc",
-  authDomain: "myfitness425-426.firebaseapp.com",
-  databaseURL: "https://myfitness425-426.firebaseio.com",
-  projectId: "myfitness425-426",
-  storageBucket: "myfitness425-426.appspot.com",
-  messagingSenderId: "27583195048"
-};
+import InputField from '../components/InputField';
 
 //firebase.initializeApp(config);
 // Get a reference to the database service
@@ -98,10 +90,10 @@ export default class UserInfoScreen extends React.Component {
             <View style={styles.signupContainer}>
               <Text style={styles.title}>Profile Information</Text>
             </View>
-    
+
             <View>
                 <StatusBar barStyle="light-content" />
-    
+
               <TextInput
                 name="firstName"
                 placeholderTextColor="rgba(255,255,255,0.7)"
@@ -110,7 +102,9 @@ export default class UserInfoScreen extends React.Component {
                 style={styles.textInput}
                 onSubmitEditing={() => this.emailInput.focus()}
                 autoCorrect={false}
-                onChangeText={(text) => this.setState({firstName: text})}
+                onChangeText={
+                  (text) => this.validateInputs(text, 'username')
+                }
                 value={this.state.firstName}
                 placeholder= "First Name"
                 
@@ -177,12 +171,12 @@ export default class UserInfoScreen extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-    
+
           </KeyboardAvoidingView>
         );
       }
     }
-    
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,

@@ -1,23 +1,43 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default class WorkoutSheet extends Component {
+class WorkoutSheet extends Component {
     constructor(props) {
-        super(props);
-        this.state = { 
-            exercise: 'Enter Exercise Here',
-            weight: 'Enter weight Here',
-            sets: 'Enter Number Of Sets',
-            reps: 'Enter Number Of Repitions',
-            instructions: 'Instructions For Workout'
-        };
-
+        super(props)
+ 
     }
+
+    complete() {
+        
+    }
+
     render() {
         return (
-            <View>
-                
-            </View>
+            <TouchableOpacity style = {styles.touch}>
+                <View style={styles.container}>
+                    <Text style={styles.ExerciseInfo}>Exercise: </Text>
+                    <Text style={styles.ExerciseInfo}>Weight: </Text>
+                    <Text style={styles.ExerciseInfo}>Sets: </Text>
+                    <Text style={styles.ExerciseInfo}>Reps: </Text>
+                </View>
+            </TouchableOpacity>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#2874A6',
+        width: '100%',
+        padding: 30,
+        margin: 5,
+        justifyContent: 'flex-start',
+    },
+    ExerciseInfo: {
+        fontSize: 16,
+        padding: 5,
+    }
+})
+
+
+export default WorkoutSheet;

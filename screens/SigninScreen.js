@@ -11,7 +11,8 @@ import {
  } from 'react-native';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
-
+import InputField from '../components/InputField';
+import RectangleButton from '../components/RectangleButton';
 
 const database = firebase.database().ref();
 const userRef = database.child('users');
@@ -61,53 +62,43 @@ export default class LoginScreen extends React.Component {
           <Text style={styles.title}>Login</Text>
         </View>
 
-        <View>
-            <StatusBar barStyle="light-content" />
-
-          <TextInput
-          style={styles.textInput}
-            placeholder= "Email"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            autoCapitalize="none"
+        <View style={styles.pushUp}>
+          <StatusBar barStyle="light-content" />
+          <InputField
+            labelText="Email"
+            labelTextSize={15}
+            labelColor="#FFF"
+            labelPlaceholderColor="rgba(255,255,255,0.7)"
+            inputType="email"
             onSubmitEditing={() => this.emailInput.focus()}
-            autoCorrect={false}
-
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
-
           />
-          <TextInput
-            placeholder= "Password"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            autoCapitalize="none"
-            secureTextEntry
-            style={styles.textInput}
+
+          <InputField
+            labelText="Password"
+            labelTextSize={15}
+            labelColor="#FFF"
+            labelPlaceholderColor="rgba(255,255,255,0.7)"
+            inputType="password"
             ref={(input) => this.emailInput = input}
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
           />
-          <View style={styles.totalButtonContainer}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => this.signIn()}
-            >
-              <View>
-                <Text style={styles.buttonText}>Log In Existing</Text>
-              </View>
-            </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={this._showForgotPassword}
-            >
-              <View>
-                <Text style={styles.forgotPasswordButton}>Forgot Password?</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          <RectangleButton
+            text="Log In Existing"
+            color="#FFF"
+            backgroundColor="#2874A6"
+            onPress={() => this.signIn()}
+          />
+
+          <RectangleButton
+            text="Forgot Password"
+            color="#FFF"
+            onPress={this._showForgotPassword}
+          />
         </View>
-
       </KeyboardAvoidingView>
     );
   }
@@ -128,35 +119,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 40,
   },
-  textInput: {
-    height: 40,
-    //backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.3)',
-    marginBottom: 10,
-    color: "#FFF",
-    paddingHorizontal: 10,
-    fontSize: 15,
+  pushUp: {
+    marginBottom: 15,
   },
-  totalButtonContainer: {
-    marginBottom: 40,
-  },
-  buttonContainer: {
-    marginVertical: 5,
-    backgroundColor: '#2874A6',
-    paddingVertical: 12,
-   },
-   buttonText: {
-     textAlign: 'center',
-     color: '#FFF',
-     fontWeight: '500',
-   },
-   forgotPasswordButton: {
-     marginTop: 10,
-     textAlign: 'center',
-     color: '#FFF',
-     fontWeight: '500',
-   }
 
 });
