@@ -12,6 +12,8 @@ import UserInfoScreen from '../screens/UserInfoScreen';
 
 //TEST SCREENS
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
+import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -86,7 +88,6 @@ UserInfoStack.navigationOptions = {
     />
   ),
 };
-
 
 
 export default createBottomTabNavigator({

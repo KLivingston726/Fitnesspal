@@ -6,14 +6,21 @@ class WorkoutSheet extends Component {
         super(props)
  
     }
+
+    complete() {
+        
+    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.ExerciseInfo}>Exercise: </Text>
-                <Text style={styles.ExerciseInfo}>Weight: </Text>
-                <Text style={styles.ExerciseInfo}>Sets: </Text>
-                <Text style={styles.ExerciseInfo}>Reps: </Text>
-            </View>
+            <TouchableOpacity style = {styles.touch}>
+                <View style={styles.container}>
+                    <Text style={styles.ExerciseInfo}>Exercise: </Text>
+                    <Text style={styles.ExerciseInfo}>Weight: </Text>
+                    <Text style={styles.ExerciseInfo}>Sets: </Text>
+                    <Text style={styles.ExerciseInfo}>Reps: </Text>
+                </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -22,12 +29,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#2874A6',
         width: '100%',
-        padding: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 30,
+        margin: 5,
+        justifyContent: 'flex-start',
     },
     ExerciseInfo: {
         fontSize: 16,
+        padding: 5,
     }
 })
 

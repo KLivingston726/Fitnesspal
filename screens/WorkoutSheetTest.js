@@ -25,10 +25,6 @@ export default class WorkoutSheetTest extends React.Component {
         });
     }
   
-    static navigationOptions = {
-        title: 'WorkoutSheet',
-    };
-
     _showWOcreate = () => {
         this.props.navigation.navigate('WOcreate');
     }
@@ -36,13 +32,19 @@ export default class WorkoutSheetTest extends React.Component {
       render(){
           return(
             <View style = {styles.container}>
-                <ScrollView style = {styles.scrollContainer}>
+              <ScrollView contentContainerStyle = {styles.scrollContainer}>
                     <WorkoutSheet/>
-                </ScrollView>
 
-                <TouchableOpacity onPress={this._showWOcreate}>
-                    <Text style = {styles.createButton}>+</Text>
-                </TouchableOpacity>
+                    <WorkoutSheet/>
+
+                    <WorkoutSheet/>
+
+                <View style = {styles.buttonContainer}>
+                    <TouchableOpacity onPress={this._showWOcreate}>
+                        <Text style = {styles.createButton}>+</Text>
+                    </TouchableOpacity>
+                </View>
+                </ScrollView>
             </View>
           );
       }
@@ -51,10 +53,11 @@ export default class WorkoutSheetTest extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
         backgroundColor: '#3498DB',
         padding: 20,
-        alignItems: 'center'
+    },
+    buttonContainer: {
+        alignItems: 'center',
     },
     button: {
         borderWidth: 1,
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
     },
     scrollContainer: {
-        flex: 1,
+        backgroundColor: '#3498DB',
     },
     createButton: {
         fontSize: 36,

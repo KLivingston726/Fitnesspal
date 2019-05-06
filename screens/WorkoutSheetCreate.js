@@ -15,6 +15,21 @@ import { WebBrowser } from 'expo';
 import WorkoutSheet from '../components/WorkoutSheet'
 import { MonoText } from '../components/StyledText';
 
+import firebase from 'firebase'
+import * as FirebaseAPI from '../modules/firebaseAPI';
+import InputField from '../components/InputField';
+
+//firebase.initializeApp(config);
+// Get a reference to the database service
+const database = firebase.database().ref();
+const userRef = database.child('users/WOsheet');
+
+var user = firebase.auth().currentUser;
+
+if (user != null) {
+    uid = user.uid;
+  }
+
 export default class WorkoutSheetCreate extends React.Component {
     constructor(props){
         super(props);
@@ -26,11 +41,55 @@ export default class WorkoutSheetCreate extends React.Component {
         });
     }
 
+    watchAuthState(navigation) {
+        firebase.auth().onAuthStateChanged(function(user) {
+          console.log('onAuthStatheChanged: ', user);
+          console.log('userID 101: ', user.uid);
+    
+          if (user) {
+            //navigation.navigate('Main');
+          } else {
+    
+          }
+        });
+      }
+
+      sheetCreate() {
+          FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
+          var user = firebase.auth().currentUser;
+
+          firebase.database().ref('/Workouts/'+user.uid).push({
+              Exercise: this.state.Exercise,
+              Sets: this.state.Sets,
+              Weight: this.state.Weight,
+              Reps: this.state.Reps,
+          });
+
+          this.props.navigation.navigate('showWorkouts');
+      }
+
+
+      validateInputs(text, type) {
+        let numreg = /^[0-9]+$/;
+          if (type == 'age') {
+            if (numreg.test(text)) {
+              this.setState({age: text})
+            } else {
+    
+            }
+          }
+      }
+
     render(){
         return(
 
-
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+
+                <View style = {styles.header}>
+                    <Text style={styles.title}>Create New Workout</Text>
+                </View>
+
+
                 <View style = {styles.contentContainer}>
                     <TextInput
                         placeholder= "Exercise"
@@ -76,7 +135,20 @@ export default class WorkoutSheetCreate extends React.Component {
                         onChangeText={(text) => this.setState({Reps: text})}
                         value={this.state.Reps}
                         />
-                </View>
+
+                        <View style={styles.totalButtonContainer}>
+                            <TouchableOpacity
+                                style={styles.buttonContainer}
+                                onPress={() => this.sheetCreate()}
+                            >
+                                <View>
+                                    <Text style={styles.buttonText}>Add Exercise</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                        </View>
+
+                    </View>
              </KeyboardAvoidingView>
         );
     }
@@ -86,6 +158,7 @@ export default class WorkoutSheetCreate extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 10,
         backgroundColor: '#3498DB',
     },
     contentContainer: {
@@ -93,6 +166,16 @@ const styles = StyleSheet.create({
         padding: 20,
 
     },
+    header: {
+        alignItems: 'center',
+        padding: 40,
+        justifyContent: 'center',
+      },
+    title: {
+        color: '#FFF',
+        textAlign: 'center',
+        fontSize: 24,
+      },
     textInput: {
         height: 40,
         borderRadius: 4,
@@ -103,4 +186,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         fontSize: 15,
       },
+      totalButtonContainer: {
+        marginBottom: 40,
+      },
+      buttonContainer: {
+        marginVertical: 5,
+        backgroundColor: '#2874A6',
+        paddingVertical: 12,
+       },
+       buttonText: {
+         textAlign: 'center',
+         color: '#FFF',
+         fontWeight: '500',
+       }
 });
