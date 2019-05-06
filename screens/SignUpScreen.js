@@ -27,13 +27,14 @@ firebase.initializeApp(config);
 
 const database = firebase.database().ref();
 const userRef = database.child('users');
+const user = firebase.auth().currentUser;
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
       email: "",
-      password: ""
+      password: "",
     });
   }
 
@@ -64,7 +65,7 @@ export default class LoginScreen extends React.Component {
     FirebaseAPI.createUser(this.state.email, this.state.password)
       userRef.push({
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
       })
 
   }
