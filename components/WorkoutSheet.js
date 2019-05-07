@@ -3,24 +3,35 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 class WorkoutSheet extends Component {
     constructor(props) {
-        super(props)
- 
+        super(props);
+        
+        this.state = {
+            toggle: true,
+        };
     }
 
-    complete() {
-        
+    _complete() {
+        const newState = !this.state.toggle;
+        this.setState({toggle:newState})
     }
 
     render() {
+        
+        const {toggle} = this.state;
+        const buttonColor = toggle?'#2874A6':'#3BFFC6';
+
         return (
-            <TouchableOpacity style = {styles.touch}>
-                <View style={styles.container}>
-                    <Text style={styles.ExerciseInfo}>Exercise: </Text>
-                    <Text style={styles.ExerciseInfo}>Weight: </Text>
-                    <Text style={styles.ExerciseInfo}>Sets: </Text>
-                    <Text style={styles.ExerciseInfo}>Reps: </Text>
-                </View>
-            </TouchableOpacity>
+
+                <TouchableOpacity 
+                onPress={()=>this._complete()}
+                style = {{backgroundColor:buttonColor, width:'100%', padding: 30, justifyContent:'flex-start', margin:5}}>
+                    <View>
+                        <Text style={styles.ExerciseInfo}>Exercise: </Text>
+                        <Text style={styles.ExerciseInfo}>Weight: </Text>
+                        <Text style={styles.ExerciseInfo}>Sets: </Text>
+                        <Text style={styles.ExerciseInfo}>Reps: </Text>
+                    </View>
+                </TouchableOpacity>
         );
     }
 }
