@@ -23,7 +23,7 @@ import InputField from '../components/InputField';
 // Get a reference to the database service
 
 const database = firebase.database().ref();
-const userRef = database.child('users');
+//const userRef = database.child('users');
 
 var user = firebase.auth().currentUser;
 
@@ -61,6 +61,7 @@ export default class UserInfoScreen extends React.Component {
       console.log('onAuthStatheChanged: ', user);
       console.log('userID 101: ', user.uid);
 
+
       if (user) {
         //navigation.navigate('Main');
       } else {
@@ -72,7 +73,8 @@ export default class UserInfoScreen extends React.Component {
   userInfo() {
     FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
     var user = firebase.auth().currentUser;
-    firebase.database().ref('/users/'+user.uid).push({
+    var userRef = firebase.database().ref('/users/'+user.uid);
+    userRef.set({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       age: this.state.age,
@@ -81,6 +83,7 @@ export default class UserInfoScreen extends React.Component {
       sex: this.state.sex
     });
   }
+
 
   validateInputs(text, type) {
     let numreg = /^[0-9]+$/;
@@ -132,7 +135,7 @@ export default class UserInfoScreen extends React.Component {
                 onSubmitEditing={() => this.emailInput.focus()}
                 autoCorrect={false}
                 onChangeText={
-                  (text) => this.validateInputs(text, 'username')
+                  (text) => this.setState({firstName: text})
                 }
                 value={this.state.firstName}
 

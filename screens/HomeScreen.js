@@ -14,11 +14,22 @@ import { MonoText } from '../components/StyledText';
 import * as FirebaseAPI from '../modules/firebaseAPI';
 import firebase from 'firebase';
 
-
 //const database = firebase.database().ref();
 //const userRef = database.child('users/' + firebase.auth().currentUser.uid);
+var user = firebase.auth().currentUser;
+
+if (user != null) {
+  uid = user.uid;
+}
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      userInfo: [],
+    });
+  }
+
   static navigationOptions = {
     header: null,
   };
@@ -33,7 +44,84 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+  getUserInfo() {
+    // var user = firebase.auth().currentUser;
+    // firebase.database().ref('users/'+user.uid).once('value', function (snapshot) {
+    //   console.log(snapshot.val());
+    //   let userInfo = {
+    //     lastName: snapshot.val().lastname,
+    //   }
+    //   return userInfo;
+    // });
+  }
+
+  componentDidMount() {
+    //this.watchAuthState(this.props.navigation);
+    var user = firebase.auth().currentUser;
+    const userPath = firebase.database().ref('/users/'+user.uid);
+    userPath.on("value", snapshot => {
+
+      let userInfo = snapshot.val();
+      let newState = [];
+
+      newState.age = userInfo.age;
+      newState.firstName = userInfo.firstName;
+      newState.height= userInfo.height;
+      newState.lastName = userInfo.lastName;
+      newState.sex = userInfo.sex;
+      newState.weight = userInfo.weight;
+
+      // for(let info in userInfo){
+      //   newState.push({
+      //     id: info,
+      //     age: userInfo[info].age,
+      //     firstName: userInfo[info].firstName,
+      //     height: userInfo[info].height,
+      //     lastName: userInfo[info].lastName,
+      //     sex: userInfo[info].sex,
+      //     weight: userInfo[info].weight,
+      //   });
+      //
+      //   // as each iteration goes by 'info' value changes to each attribute
+      //
+      //   console.log(info);
+      // }
+
+      this.setState({
+          userInfo: newState
+      });
+    });
+
+  }
+
+
+
+  watchAuthState(navigation) {
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   console.log('onAuthStatheChanged: ', user);
+    //   console.log('userID 101: ', user.uid);
+    //   var user = firebase.auth().currentUser;
+    //   var lastname;
+    //   firebase.database().ref('users/'+user.uid).once('value').then(function (snapshot) {
+    //     if (!snapshot) {
+    //      console.log('An error occured');
+    //     } else {
+    //
+    //     }
+    //        console.log(snapshot.val());
+    //        console.log(snapshot.val().lastName);
+    //
+    //   });
+    // });
+  }
+
+
+
   render() {
+
+    const { userInfo } = this.state;
+    console.log(userInfo);
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -65,6 +153,13 @@ export default class HomeScreen extends React.Component {
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
               <MonoText style={styles.codeHighlightContainer}>Click here to check the Weather</MonoText>
             </TouchableOpacity>
+
+
+
+            <View>
+              <Text>Name: {userInfo.lastName}</Text>
+            </View>
+
 
             {this._maybeRenderDevelopmentModeWarning()}
             {this._RobbieInfoPage()}

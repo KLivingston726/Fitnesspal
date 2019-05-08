@@ -11,6 +11,8 @@ import {
  } from 'react-native';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
+import InputField from '../components/InputField';
+import RectangleButton from '../components/RectangleButton';
 
 const database = firebase.database().ref();
 const userRef = database.child('users');
@@ -20,7 +22,8 @@ export default class LoginScreen extends React.Component {
     super(props);
     this.state = ({
       email: "",
-      password: ""
+      password: "",
+      confirmPassword: ""
     });
   }
 
@@ -47,13 +50,28 @@ export default class LoginScreen extends React.Component {
 
 
   //Add additional states for name age height weight ect.
-  createUser() {
-    FirebaseAPI.createUser(this.state.email, this.state.password)
-      userRef.push({
-        email: this.state.email,
-        password: this.state.password
-      })
+  createUser(check) {
+    if(check == true) {
+      FirebaseAPI.createUser(this.state.email, this.state.password);
+    }
+    else {
+      console.log("Thats a no chief");
+    }
+      // userRef.push({
+      //   email: this.state.email,
+      //   password: this.state.password
+      // })
+    //this._showUserInfo
+  }
 
+
+  handleConfirmPassword() {
+    if(this.state.password == this.state.confirmPassword) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   render() {
@@ -66,40 +84,48 @@ export default class LoginScreen extends React.Component {
         <View>
             <StatusBar barStyle="light-content" />
 
-          <TextInput
-          style={styles.textInput}
-            placeholder= "Email"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            autoCapitalize="none"
+          <InputField
+            labelText="Email"
+            labelTextSize={15}
+            labelColor="#FFF"
+            labelPlaceholderColor="rgba(255,255,255,0.7)"
+            inputType="email"
             onSubmitEditing={() => this.emailInput.focus()}
-            autoCorrect={false}
-
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
-
           />
-          <TextInput
-            placeholder= "Password"
-            placeholderTextColor="rgba(255,255,255,0.7)"
-            returnKeyType="next"
-            autoCapitalize="none"
-            secureTextEntry
-            style={styles.textInput}
+
+          <InputField
+            labelText="Password"
+            labelTextSize={15}
+            labelColor="#FFF"
+            labelPlaceholderColor="rgba(255,255,255,0.7)"
+            inputType="password"
             ref={(input) => this.emailInput = input}
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
           />
-          <View style={styles.totalButtonContainer}>
 
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => this.createUser()}
-            >
-              <View>
-                <Text style={styles.buttonText}>Create</Text>
-              </View>
-            </TouchableOpacity>
+          <InputField
+            labelText="Confirm Password"
+            labelTextSize={15}
+            labelColor="#FFF"
+            labelPlaceholderColor="rgba(255,255,255,0.7)"
+            inputType="password"
+            ref={(input) => this.password = input}
+            onChangeText={(text) => this.setState({confirmPassword: text})}
+            value={this.state.confirmPassword}
+          />
+
+
+          <View style={styles.totalButtonContainer}>
+            <RectangleButton
+              text="Create"
+              color="#FFF"
+              backgroundColor="#2874A6"
+              handleOnPress={() => this.createUser(this.handleConfirmPassword())}
+            />
+
           </View>
         </View>
 
@@ -135,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   totalButtonContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
   buttonContainer: {
     marginVertical: 5,
