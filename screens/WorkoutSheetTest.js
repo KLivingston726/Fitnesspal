@@ -88,7 +88,7 @@ export default class WorkoutSheetTest extends React.Component {
                     <WorkoutSheet/>
 
                     <View style = {styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.readUserData()}>
+                        <TouchableOpacity onPress={() => this._showWOcreate()}>
                             <Text style = {styles.createButton}>+</Text>
                         </TouchableOpacity>
                     </View>

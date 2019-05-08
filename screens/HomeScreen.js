@@ -58,7 +58,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     //this.watchAuthState(this.props.navigation);
     var user = firebase.auth().currentUser;
-    const userPath = firebase.database().ref('/users/'+user.uid);
+    const userPath = firebase.database().ref('/Info/'+user.uid);
     userPath.on("value", snapshot => {
 
       let userInfo = snapshot.val();
@@ -130,7 +130,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>Welcome to WorkoutMate: Your Personal Fitness Tracker</MonoText>
+              <MonoText style={styles.codeHighlightText}>Welcome Back {userInfo.firstName}!</MonoText>
             </View>
           </View>
 
@@ -158,13 +158,6 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.announcmentTitle}>
             This Weeks Announcments:
           </Text>
-
-
-
-            <View>
-              <Text>Name: {userInfo.lastName}</Text>
-            </View>
-
 
             {this.announcmentContainer()}
             {this.linkContainer()}

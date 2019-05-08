@@ -38,6 +38,19 @@ export default class WorkoutSheetCreate extends React.Component {
         });
     }
 
+    /* JERRY RIG
+    sheetCreate = () => {
+      FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
+      var user = firebase.auth().currentUser;
+
+      firebase.database().ref('/Workouts/'+user.uid+'/workout1/').set({
+          Exercise: this.state.Exercise,
+          Sets: this.state.Sets,
+          Weight: this.state.Weight,
+          Reps: this.state.Reps,
+      });
+      */
+
       sheetCreate = () => {
           FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
           var user = firebase.auth().currentUser;
