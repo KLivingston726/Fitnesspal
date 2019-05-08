@@ -8,6 +8,7 @@ import SigninScreen from '../screens/SigninScreen';
 import SplashScreen from '../screens/SplashScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import UserInfoScreen from '../screens/UserInfoScreen';
 
 //Test screen
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';

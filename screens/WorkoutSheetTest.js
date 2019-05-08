@@ -34,7 +34,10 @@ export default class WorkoutSheetTest extends React.Component {
         });
     }
 
-  
+    static navigationOptions = {
+      title: 'Workout Sheet',
+    };
+
     _showWOcreate = () => {
         this.props.navigation.navigate('WOcreate');
     }
@@ -44,7 +47,7 @@ export default class WorkoutSheetTest extends React.Component {
         database = firebase.database();
         const ref = database.ref('Workouts');
         ref.on('value', GotData);
-        
+
         function GotData(data) {
             //console.log(data.val());
             var workout = data.val();
@@ -60,10 +63,10 @@ export default class WorkoutSheetTest extends React.Component {
                 console.log(exercise, weight, sets );
             }
         }
-    }    
+    }
     /*
     readUserData() {
-        var ref = 
+        var ref =
         firebase.database().ref('/Workouts/' + user).once('value', function(snapshot) {
             var exercise = snapshot.numChildren();
             console.log("NUM: " + exercise);

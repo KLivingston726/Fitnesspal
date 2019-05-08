@@ -12,7 +12,7 @@ import {
 
 export default class InputField extends Component {
   render() {
-    const { labelText, labelTextSize, labelColor, labelPlaceholderColor, inputType, customStyle } = this.props;
+    const { labelText, labelTextSize, labelColor, labelPlaceholderColor, inputType, customStyle, onChangeText } = this.props;
     const fontSize = labelTextSize || 15;
     const color = labelColor || "#FFF";
     const placeholderColor = labelPlaceholderColor || "rgba(255,255,255,0.7)";
@@ -26,6 +26,7 @@ export default class InputField extends Component {
           placeholder={labelText}
           placeholderTextColor={labelPlaceholderColor}
           secureTextEntry={inputType === 'password' ? true : false}
+          onChangeText={onChangeText}
         />
       </View>
     );
@@ -38,7 +39,8 @@ InputField.propTypes = {
   labelColor: PropTypes.string,
   labelPlaceholderColor: PropTypes.string,
   inputType: PropTypes.string.isRequired,
-  customStyle: PropTypes.object
+  customStyle: PropTypes.object,
+  onChangeText: PropTypes.func
 };
 
 const styles = StyleSheet.create({

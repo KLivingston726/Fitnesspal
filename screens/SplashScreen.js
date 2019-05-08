@@ -21,9 +21,11 @@ export default class SplashScreen extends React.Component {
     });
   }
 
-  static navigationOptions = {
-    title: 'Login Screen',
-  };
+
+    static navigationOptions = {
+      header: null
+    };
+
 
   _showLogin = () => {
     this.props.navigation.navigate('Login');
@@ -115,7 +117,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 50,
     fontFamily: 'Georgia-Bold',
-    backgroundColor: '#85929E',
     borderRadius: 300,
   },
   totalButtonContainer: {

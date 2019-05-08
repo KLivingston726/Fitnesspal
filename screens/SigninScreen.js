@@ -90,13 +90,13 @@ export default class LoginScreen extends React.Component {
             text="Log In Existing"
             color="#FFF"
             backgroundColor="#2874A6"
-            onPress={() => this.signIn()}
+            handleOnPress={() => this.signIn()}
           />
 
           <RectangleButton
             text="Forgot Password"
             color="#FFF"
-            onPress={this._showForgotPassword}
+            handleOnPress={this._showForgotPassword}
           />
         </View>
       </KeyboardAvoidingView>
