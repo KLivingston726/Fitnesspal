@@ -166,13 +166,12 @@ export default class HomeScreen extends React.Component {
             </View>
 
 
-            {this._maybeRenderDevelopmentModeWarning()}
-            {this._RobbieInfoPage()}
+            {this.announcmentContainer()}
+            {this.linkContainer()}
 
             <Text style={styles.barUI}>
             __________________________
             </Text>
-          </View>
 
           <Text style={styles.announcmentTitle}>
             Todays Workout:
@@ -197,7 +196,8 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.bottomBarUI}>
             __________________________
           </Text>
-        </ScrollView>
+          </ScrollView>
+
 
         <View style={styles.tabBarInfoContainer}>
           <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   codeHighlightContainer: {
-    backgroundColor: '#85929E',
+    
     borderRadius: 300,
     alignItems: 'center',
     marginBottom: 20,

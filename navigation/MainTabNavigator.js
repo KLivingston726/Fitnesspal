@@ -13,10 +13,9 @@ import ProfileScreen from '../screens/ProfileScreen';
 
 //TEST SCREENS
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
-<<<<<<< HEAD
-=======
+
 import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
->>>>>>> a7479b5352fda4be96dec442f487e2ab2bedf190
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
