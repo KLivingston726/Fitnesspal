@@ -11,10 +11,10 @@ import {
 
 export default class RectangleButton extends Component {
   render() {
-    const { text, color, backgroundColor, handleOnPress } = this.props;
+    const { text, color, backgroundColor, handleOnPress, width } = this.props;
     return (
         <TouchableOpacity
-          style={[{backgroundColor}, styles.buttonContainer]}
+          style={[{width}, {backgroundColor}, styles.buttonContainer]}
           onPress={handleOnPress}
         >
           <View>
@@ -31,7 +31,8 @@ export default class RectangleButton extends Component {
 RectangleButton.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
-  background: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  width: PropTypes.number,
   handleOnPress: PropTypes.func.isRequired,
 };
 

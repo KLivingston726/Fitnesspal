@@ -2,16 +2,15 @@
   "expo": {
     "name": "FitnessPal",
     "description": "User Settings",
-    "slug": "React-Native Project",
+    "slug": "ReactNativeProject",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/robot-dev.png",
+    "icon": "./assets/images/lock.png",
     "splash": {
-      "image": "./assets/images/loading.jpg",
-      "resizeMode": "contain",
+      "image": "./assets/images/lock.png",
       "backgroundColor": "#5499C7"
     },
     "updates": {

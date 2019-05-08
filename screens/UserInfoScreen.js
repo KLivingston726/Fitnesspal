@@ -23,7 +23,7 @@ import InputField from '../components/InputField';
 // Get a reference to the database service
 
 const database = firebase.database().ref();
-const userRef = database.child('users');
+//const userRef = database.child('users');
 
 var user = firebase.auth().currentUser;
 
@@ -58,6 +58,7 @@ export default class UserInfoScreen extends React.Component {
       console.log('onAuthStatheChanged: ', user);
       console.log('userID 101: ', user.uid);
 
+
       if (user) {
         //navigation.navigate('Main');
       } else {
@@ -78,6 +79,34 @@ export default class UserInfoScreen extends React.Component {
       sex: this.state.sex
     });
   }
+
+
+  validateInputs(text, type) {
+    let numreg = /^[0-9]+$/;
+      if (type == 'age') {
+        if (numreg.test(text)) {
+          this.setState({age: text})
+        } else {
+
+        }
+      }
+  }
+
+
+/*
+  //Add additional states for name age height weight ect.
+  userInfo() {
+    FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
+    userRef.push({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      age: this.state.age,
+      height: this.state.height,
+      weight: this.state.weight,
+      sex: this.state.sex
+    })
+  }
+   */
 
     static navigationOptions = {
         header: null,
@@ -105,8 +134,8 @@ export default class UserInfoScreen extends React.Component {
                 onChangeText={(text) => this.setState({firstName: text})}
                 value={this.state.firstName}
                 placeholder= "First Name"
-                
-    
+
+
               />
               <TextInput
                 placeholder= "Last Name"
