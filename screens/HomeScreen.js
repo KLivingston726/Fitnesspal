@@ -37,9 +37,17 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    
+
+
+          <View style={styles.getStartedContainer}>
+            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              <MonoText style={styles.codeHighlightText}>Welcome to WorkoutMate: Your Personal Fitness Tracker</MonoText>
+            </View>
+          </View>
+
           <View style={styles.welcomeContainer}>
             <Text style={styles.getStartedText}>
-            Welcome
             <Image
               source={
                 __DEV__
@@ -51,28 +59,50 @@ export default class HomeScreen extends React.Component {
             </Text>
           </View>
 
-
           <View style={styles.getStartedContainer}>
-
-            <Text style={styles.getStartedText}>Welcome to WorkoutMate</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>Proffesional Trainer</MonoText>
+            <View style={[styles.weatherHighlightContainer, styles.homeScreenFilename]}>
+            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+              <MonoText style={styles.weatherHighlightContainer}>Click here to check the Weather</MonoText>  
+            </TouchableOpacity>
             </View>
           </View>
 
+          <Text style={styles.announcmentTitle}>
+            This Weeks Announcments:
+          </Text>
+
           <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <MonoText style={styles.codeHighlightContainer}>Click here to check the Weather</MonoText>
-            </TouchableOpacity>
+            {this.announcmentContainer()}
+            {this.linkContainer()}
 
-            {this._maybeRenderDevelopmentModeWarning()}
-            {this._RobbieInfoPage()}
-
-            <Text style={styles.RobbieName}>
-            _____________________________________________________________
+            <Text style={styles.barUI}>
+            __________________________
             </Text>
           </View>
+
+          <Text style={styles.announcmentTitle}>
+            Todays Workout:
+          </Text>
+
+          <Text style={styles.barUI}>
+            __________________________
+          </Text>
+
+          <Text style={styles.announcmentTitle}>
+            Motivation for the week:
+          </Text>
+
+          <Text style={styles.barUI}>
+            __________________________
+          </Text>
+
+          <Text style={styles.announcmentTitle}>
+            Pro Tips:
+          </Text>
+
+          <Text style={styles.bottomBarUI}>
+            __________________________
+          </Text>
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
@@ -84,7 +114,7 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
+  announcmentContainer() {
     if (__DEV__) {
       const learnMoreButton = (
         <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
@@ -92,27 +122,29 @@ export default class HomeScreen extends React.Component {
         </Text>
       );
 
+      <Text style={styles.barUI}>
+            __________________________
+      </Text>
+
       return (
         <Text style={styles.developmentModeText}>
-          _____________________________________________________________
-          For information on this weeks events and trainer availibility hit the learn more
-          button. {learnMoreButton} _____________________________________________________________
+          For information on this weeks events and trainer availibility hit the {learnMoreButton} button!
         </Text>
       );
     }
   }
 
-  _RobbieInfoPage() {
+  linkContainer() {
     if (__DEV__) {
-      const learnMoreRobbie = (
-        <Text onPress={this._handleRobbieInfoPress} style={styles.helpLinkText}>
+      const infoLink = (
+        <Text onPress={this.linkButtonPress} style={styles.helpLinkText}>
           Article
         </Text>
       );
 
       return (
         <Text style={styles.developmentModeText}>
-          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com! {learnMoreRobbie}
+          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com! {infoLink}
         </Text>
       );
     } else {
@@ -123,7 +155,7 @@ export default class HomeScreen extends React.Component {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
-  _handleRobbieInfoPress = () => {
+  linkButtonPress = () => {
     WebBrowser.openBrowserAsync('https://8fit.com/fitness/meal-plan-muscle-gain-much-protein-really-need/');
   };
 
@@ -141,10 +173,11 @@ const styles = StyleSheet.create({
   },
   developmentModeText: {
     marginBottom: 20,
-    color: 'rgba(200,200,200,200.4)',
-    fontSize: 14,
+    marginHorizontal: 20,
+    color: '#FFF',
+    fontSize: 16,
     lineHeight: 19,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   button: {
     color: '#FFF',
@@ -162,21 +195,50 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginHorizontal: 10,
   },
+  getStartedText: {
+    fontSize: 25,
+    fontFamily: 'Georgia-Bold',
+    color: '#FFF',
+    backgroundColor: '#85929E',
+    borderRadius: 300,
+    lineHeight: 1.8,
+    marginTop: 0,
+    lineHeight: 24,
+    textAlign: 'center',
+  },
   homeScreenFilename: {
     marginVertical: 7,
   },
   codeHighlightText: {
-    color: 'rgba(100,100,100,100.4)',
+    fontSize: 20,
+    borderRadius: 300,
+    textAlign: 'center',
+    color: '#FFF',
   },
   codeHighlightContainer: {
-    backgroundColor: '#7F8C8D',
-    borderRadius: 3,
-    paddingHorizontal: 4,
+    backgroundColor: '#85929E',
+    borderRadius: 300,
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    color: '#FFF',
+  },
+  weatherHighlightContainer: {
+    backgroundColor: '#73C6B6',
+    borderRadius: 300,
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    color: '#FFF',
+  },
+  infoHighlightContainer: {
+    backgroundColor: '#B7950B',
+    borderRadius: 300,
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    color: '#FFF',
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
   },
   welcomeImage: {
     width: 375,
@@ -185,23 +247,32 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: 0,
   },
-  getStartedText: {
-    fontSize: 25,
-    fontFamily: 'Times New Roman',
-    textDecorationLine: 'underline',
-    color: '#000',
-    backgroundColor: '#FFF',
-    lineHeight: 1.8,
-    marginTop: 0,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  RobbieName: {
+  barUI: {
+    marginTop: -10,
     marginBottom: 10,
-    color: 'rgba(200,200,200,200.4)',
-    fontSize: 14,
+    color: '#FFF',
+    fontSize: 20,
+    fontFamily: 'Georgia-Bold',
     lineHeight: 30,
     textAlign: 'center',
+  },
+  bottomBarUI: {
+    marginTop: -10,
+    marginBottom: 100,
+    color: '#FFF',
+    fontSize: 20,
+    fontFamily: 'Georgia-Bold',
+    lineHeight: 30,
+    textAlign: 'center',
+  },
+  announcmentTitle: {
+    color: '#FFF',
+    fontSize: 20,
+    fontFamily: 'Georgia-Bold',
+    lineHeight: 30,
+    textAlign: 'left',
+    textDecorationLine: 'underline',
+    paddingHorizontal: 5,
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -232,16 +303,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   helpContainer: {
-    marginTop: 115,
-    alignItems: 'center',
+    alignItems: 'stretch',
+    borderRadius: 300,
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 5,
   },
   //Text link color
   helpLinkText: {
-    marginTop: 50,
-    fontSize: 14,
-    color: '#641E16',
+    fontSize: 16,
+    color: '#17202A',
   },
 });

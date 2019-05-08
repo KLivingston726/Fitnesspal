@@ -140,10 +140,10 @@ componentWillMount() {
               <Text style={styles.title}>Profile Information</Text>
             </View>
             <View>
-                <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="light-content"/>
     
               <TextInput
-                placeholder= {userID.firstName}
+                placeholder= {user.displayName}
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 returnKeyType="next"
                 autoCapitalize="none"

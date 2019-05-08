@@ -95,16 +95,14 @@ export default class UserInfoScreen extends React.Component {
                 <StatusBar barStyle="light-content" />
 
               <TextInput
-                name="firstName"
+                placeholder= "First Name"
                 placeholderTextColor="rgba(255,255,255,0.7)"
                 returnKeyType="next"
                 autoCapitalize="none"
                 style={styles.textInput}
                 onSubmitEditing={() => this.emailInput.focus()}
                 autoCorrect={false}
-                onChangeText={
-                  (text) => this.validateInputs(text, 'username')
-                }
+                onChangeText={(text) => this.setState({firstName: text})}
                 value={this.state.firstName}
                 placeholder= "First Name"
                 
