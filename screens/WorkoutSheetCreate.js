@@ -34,27 +34,11 @@ export default class WorkoutSheetCreate extends React.Component {
     constructor(props){
         super(props);
         this.state = ({
-            Exercise: "",
-            Sets: "",
-            Weight: "",
-            Reps: "",
+
         });
     }
 
-    watchAuthState(navigation) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          console.log('onAuthStatheChanged: ', user);
-          console.log('userID 101: ', user.uid);
-    
-          if (user) {
-            //navigation.navigate('Main');
-          } else {
-    
-          }
-        });
-      }
-
-      sheetCreate() {
+      sheetCreate = () => {
           FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
           var user = firebase.auth().currentUser;
 
@@ -68,6 +52,10 @@ export default class WorkoutSheetCreate extends React.Component {
           this.props.navigation.navigate('showWorkouts');
       }
 
+      _back = ()  => {
+        this.props.navigation.navigate('showWorkouts');
+      }
+      
 
       validateInputs(text, type) {
         let numreg = /^[0-9]+$/;
@@ -141,9 +129,14 @@ export default class WorkoutSheetCreate extends React.Component {
                                 style={styles.buttonContainer}
                                 onPress={() => this.sheetCreate()}
                             >
-                                <View>
                                     <Text style={styles.buttonText}>Add Exercise</Text>
-                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style = {styles.buttonContainer}
+                                onPress={() => this._back()}
+                            >
+                                <Text style = {styles.buttonText}>Back</Text>
                             </TouchableOpacity>
 
                         </View>
