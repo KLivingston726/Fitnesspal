@@ -9,9 +9,15 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignUpScreen';
 import UserInfoScreen from '../screens/UserInfoScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 //TEST SCREENS
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
+<<<<<<< HEAD
+=======
+import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
+>>>>>>> a7479b5352fda4be96dec442f487e2ab2bedf190
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
@@ -87,12 +93,33 @@ UserInfoStack.navigationOptions = {
   ),
 };
 
+const ProfileScreenStack = createStackNavigator({
+  ProfileScreenStack: ProfileScreen,
+});
+
+ProfileScreenStack.navigationOptions = {
+  tabBarLabel: 'Profile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
+
+const WorkoutSheetCreateStack = createStackNavigator({
+  WorkoutSheetCreateStack: WorkoutSheetCreate,
+})
+
+
+
 
 
 export default createBottomTabNavigator({
   HomeStack,
   WorkoutSheetStack,
   UserInfoStack,
+  ProfileScreenStack,
   //LinksStack,
   //SettingsStack,
 });

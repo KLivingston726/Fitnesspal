@@ -16,6 +16,7 @@ import RectangleButton from '../components/RectangleButton';
 
 const database = firebase.database().ref();
 const userRef = database.child('users');
+const user = firebase.auth().currentUser;
 
 export default class LoginScreen extends React.Component {
   constructor(props) {

@@ -27,9 +27,6 @@ const database = firebase.database().ref();
 
 var user = firebase.auth().currentUser;
 
-if (user != null) {
-  uid = user.uid;
-}
 
 export default class UserInfoScreen extends React.Component {
   constructor(props) {
@@ -73,8 +70,7 @@ export default class UserInfoScreen extends React.Component {
   userInfo() {
     FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
     var user = firebase.auth().currentUser;
-    var userRef = firebase.database().ref('/users/'+user.uid);
-    userRef.set({
+    firebase.database().ref('/Info/'+user.uid).set({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       age: this.state.age,
@@ -117,6 +113,7 @@ export default class UserInfoScreen extends React.Component {
       };
 
       render() {
+        var user = firebase.auth().currentUser;
         return (
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.signupContainer}>
@@ -134,10 +131,9 @@ export default class UserInfoScreen extends React.Component {
                 style={styles.textInput}
                 onSubmitEditing={() => this.emailInput.focus()}
                 autoCorrect={false}
-                onChangeText={
-                  (text) => this.setState({firstName: text})
-                }
+                onChangeText={(text) => this.setState({firstName: text})}
                 value={this.state.firstName}
+                placeholder= "First Name"
 
 
               />

@@ -16,7 +16,7 @@ import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
 
 
 const AuthStackNavigator = createStackNavigator({Splash: SplashScreen, Login: SigninScreen, Signin: SignUpScreen,
-                                                ForgotPassword: ForgotPasswordScreen, UserInfo: UserInfoScreen});
+                                                ForgotPassword: ForgotPasswordScreen, showWorkouts: WorkoutSheetTest, WOcreate: WorkoutSheetCreate});
 //const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
 
 
@@ -29,6 +29,7 @@ export default createSwitchNavigator(
     Main: MainTabNavigator,
     Auth: AuthStackNavigator,
     AuthLoading: AuthLoadingScreen,
+    showWorkouts: WorkoutSheetTest,
     WOcreate: WorkoutSheetCreate,
   },
   {

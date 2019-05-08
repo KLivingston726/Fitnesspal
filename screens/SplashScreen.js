@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  Image,
   Text,
   StyleSheet,
   Platform,
@@ -21,7 +22,7 @@ export default class SplashScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Splash',
+    title: 'Login Screen',
   };
 
   _showLogin = () => {
@@ -37,8 +38,24 @@ export default class SplashScreen extends React.Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.signupContainer}>
-          <Text style={styles.title}>Splash Screen</Text>
+          <Text style={styles.title}>Welcome to WorkoutMate</Text>
+          <Text style={styles.infoText}>
+            Log-In or Create New User Below
+          </Text>
+          <View style={styles.welcomeContainer}>
+            <Text style={styles.getStartedText}>
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/brad.jpg')
+                  : require('../assets/images/robot-prod.png')
+              }
+              style={styles.welcomeImage}
+            />
+            </Text>
+          </View>
         </View>
+
 
         <View>
             <StatusBar barStyle="light-content" />
@@ -72,11 +89,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexGrow: 1,
     justifyContent: 'center',
+    backgroundColor: '#3498DB',
+  },
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 50,
+    marginBottom: 20,
+    borderRadius: 300,
+  },
+  infoText: {
+    marginTop: 30,
+    fontSize: 20,
+    color: '#17202A',
+    fontFamily: 'Georgia-Bold',
+  },
+  welcomeImage: {
+    width: 375,
+    height: 250,
+    resizeMode: 'contain',
+    marginTop: 0,
+    marginLeft: 0,
   },
   title: {
     color: '#FFF',
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 50,
+    fontFamily: 'Georgia-Bold',
+    backgroundColor: '#85929E',
+    borderRadius: 300,
   },
   totalButtonContainer: {
     marginBottom: 30,
