@@ -8,9 +8,9 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/lock.png",
+    "icon": "./assets/images/loading.png",
     "splash": {
-      "image": "./assets/images/lock.png",
+      "image": "./assets/images/loading.png",
       "backgroundColor": "#5499C7"
     },
     "updates": {

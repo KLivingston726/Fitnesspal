@@ -34,6 +34,12 @@ var config = {
 const database = firebase.database().ref();
 const userRef = database.child('users');
 
+var user = firebase.auth().currentUser;
+
+if (user != null) {
+  uid = user.uid;
+}
+
 export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +49,8 @@ export default class ProfileScreen extends React.Component {
       age: "",
       height: "",
       weight: "",
-      sex: ""
+      sex: "",
+      userInfo: []
     });
   }
 
@@ -62,9 +69,46 @@ componentWillMount() {
   });
 }
 
-  componentDidMount() {
-    this.watchAuthState(this.props.navigation)
-  }
+componentDidMount() {
+  //this.watchAuthState(this.props.navigation);
+  var user = firebase.auth().currentUser;
+  const userPath = firebase.database().ref('/Info/'+user.uid);
+  userPath.on("value", snapshot => {
+
+    let userInfo = snapshot.val();
+    let newState = [];
+
+    newState.age = userInfo.age;
+    newState.firstName = userInfo.firstName;
+    newState.height= userInfo.height;
+    newState.lastName = userInfo.lastName;
+    newState.sex = userInfo.sex;
+    newState.weight = userInfo.weight;
+
+    // for(let info in userInfo){
+    //   newState.push({
+    //     id: info,
+    //     age: userInfo[info].age,
+    //     firstName: userInfo[info].firstName,
+    //     height: userInfo[info].height,
+    //     lastName: userInfo[info].lastName,
+    //     sex: userInfo[info].sex,
+    //     weight: userInfo[info].weight,
+    //   });
+    //
+    //   // as each iteration goes by 'info' value changes to each attribute
+    //
+    //   console.log(info);
+    // }
+
+    console.log(userInfo);
+
+    this.setState({
+        userInfo: newState
+    });
+  });
+
+}
 
   watchAuthState(navigation) {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -134,44 +178,92 @@ componentWillMount() {
       render() {
         var userID = firebase.auth().currentUser.uid;
         var user = firebase.auth().currentUser;
+
+        const { userInfo } = this.state;
+        console.log(userInfo);
+
         return (
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
-            <View style={styles.signupContainer}>
-              <Text style={styles.title}>Profile Information</Text>
-            </View>
+            
             <View>
                 <StatusBar barStyle="light-content"/>
-    
-              <TextInput
-                placeholder= {user.displayName}
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                returnKeyType="next"
-                autoCapitalize="none"
-                style={styles.textInput}
-                ref={(input) => this.emailInput = input}
-                onChangeText={(text) => this.setState({sex: text})}
-                value={this.state.sex}
-              />
 
-              <TextInput
-                placeholder= {'Info/'+userID.age}
-                placeholderTextColor="rgba(255,255,255,0.7)"
-                returnKeyType="next"
-                autoCapitalize="none"
-                style={styles.textInput}
-                value={this.state.sex}
-              />
+              <View style={styles.Container}>
+                <Text style={styles.title}>User Profile</Text>
+              </View>  
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+    
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>First Name: {userInfo.firstName}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Last Name: {userInfo.lastName}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Email: {user.email}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Gender: {userInfo.sex}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Age: {userInfo.age}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Height: {userInfo.height}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
+
+              <View style={styles.infoContainer}>
+                <Text style={styles.infoText}>Weight: {userInfo.weight}</Text>
+              </View>
+
+              <Text style={styles.barUI}>
+                __________________________
+              </Text>
 
               <View style={styles.totalButtonContainer}>
                 <TouchableOpacity
                   style={styles.buttonContainer}
-                  onPress={() => this.readUserData()}
+                  onPress={() => this.userInfo()}
                 >
                   <View>
-                    <Text style={styles.buttonText}>SAVE SETTINGS</Text>
+                    <Text style={styles.buttonText}>UPDATE SETTINGS</Text>
                   </View>
                 </TouchableOpacity>
               </View>
+
+              
             </View>
     
           </KeyboardAvoidingView>
@@ -183,12 +275,25 @@ componentWillMount() {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
+        paddingVertical: 70,
         backgroundColor: '#3498DB',
       },
       signupContainer: {
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center',
+      },
+      infoContainer: {
+        alignItems: 'stretch',
+        flexGrow: 1,
+      },
+      infoText: {
+        color: '#FFF',
+        marginBottom: 1,
+        textAlign: 'left',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        fontSize: 20,
       },
       title: {
         color: '#FFF',
@@ -207,6 +312,15 @@ componentWillMount() {
       },
       totalButtonContainer: {
         marginBottom: 40,
+      },
+      barUI: {
+        marginTop: -10,
+        marginBottom: 10,
+        color: '#FFF',
+        fontSize: 20,
+        fontFamily: 'Georgia-Bold',
+        lineHeight: 30,
+        textAlign: 'center',
       },
       buttonContainer: {
         marginVertical: 5,
