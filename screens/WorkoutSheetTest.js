@@ -16,9 +16,6 @@ import { MonoText } from '../components/StyledText';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
 
-const database = firebase.database().ref();
-const userRef = database.child('users');
-
 var user = firebase.auth().currentUser;
 
 if (user != null) {
@@ -29,66 +26,96 @@ if (user != null) {
 export default class WorkoutSheetTest extends React.Component {
     constructor(props) {
         super(props);
-        this.state =({
 
+        this.state =({
+            workouts: [],
         });
     }
 
     static navigationOptions = {
-      title: 'Workout Sheet',
-    };
+        header: null,
+      };
+
+      /*
+    componentDidMount() {
+        var userId = firebase.auth().currentUser.uid;
+        database = firebase.database();
+        var ref = database.ref('Workouts/' + userId);
+        ref.on('value', gotData);
+
+        function gotData(data) {
+            var workouts = data.val();
+            var keys = Object.keys(workouts);
+            console.log(keys);
+
+            for (var i = 0; i < keys.length; i++) { 
+                var k = keys[i];
+                var exercise = workouts[k].Exercise;
+                var weights = workouts[k].Weight;
+                var reps = workouts[k].Reps;
+                var sets = workouts[k].Sets;
+                this.createWorkout(exercise, weights, reps, sets);
+                console.log(exercise, weights, reps, sets);
+            }
+        }
+    }
+ */
+    
+    readUserData(){
+        var userId = firebase.auth().currentUser.uid;
+        database = firebase.database();
+        var ref = database.ref('Workouts/' + userId);
+        ref.on('value', gotData);
+
+        function gotData(data) {
+            var workouts = data.val();
+            var keys = Object.keys(workouts);
+            console.log(keys);
+
+            for (var i = 0; i < keys.length; i++) { 
+                var k = keys[i];
+                var exercise = workouts[k].Exercise;
+                var weights = workouts[k].Weight;
+                var reps = workouts[k].Reps;
+                var sets = workouts[k].Sets;
+                createWorkout(exercise, weights, reps, sets);
+                console.log(exercise, weights, reps, sets);
+            }
+        }
+
+    }
+    
+
+    createWorkout(exercise, weights, reps, sets){
+        return (
+            <WorkoutSheet Exercise = {exercise} Wieght = {weights} Reps = {reps} Sets = {sets}/>
+        );
+
+    }
 
     _showWOcreate = () => {
         this.props.navigation.navigate('WOcreate');
     }
 
-
-    readUserData() {
-        database = firebase.database();
-        const ref = database.ref('Workouts');
-        ref.on('value', GotData);
-
-        function GotData(data) {
-            //console.log(data.val());
-            var workout = data.val();
-            var keys = Object.keys(workout);
-            for (var i = 0; i < keys.length; i++) {
-                var k = keys[i];
-                var exercise = workout[k].Exercise;
-                var weight = workout[k].Weight;
-                var sets = workout[k].Sets;
-                var reps = workout[k].Reps;
-
-
-                console.log(exercise, weight, sets );
-            }
-        }
+    getWorkouts(workouts) {
+        let length = workouts.length;
+        console.log( "!!!!!!!!!!!HERE!!!!!!!!!!!!!!!!!!" + length );
     }
-    /*
-    readUserData() {
-        var ref =
-        firebase.database().ref('/Workouts/' + user).once('value', function(snapshot) {
-            var exercise = snapshot.numChildren();
-            console.log("NUM: " + exercise);
-            console.log(snapshot.val());
 
-        });
-    }
-    */
 
       render(){
+
+        const { workouts } = this.state;
+        console.log( workouts );
+
+        //workoutSheet = this.getWorkouts( workouts );
+
           return(
             <View style = {styles.container}>
-              <ScrollView contentContainerStyle = {styles.scrollContainer}>
-
-                    <WorkoutSheet Exercise = "Bench Press" Weight = "135" Sets = "4" Reps = "12, 10, 8, 6"/>
-
-                    <WorkoutSheet/>
-
-                    <WorkoutSheet/>
+                <ScrollView contentContainerStyle = {styles.scrollContainer}>
 
                     <View style = {styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.readUserData()}>
+                        <TouchableOpacity onPress={() => this._showWOcreate()}>
                             <Text style = {styles.createButton}>+</Text>
                         </TouchableOpacity>
                     </View>
@@ -102,6 +129,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#3498DB',
+        paddingTop: 50,
         padding: 20,
     },
     buttonContainer: {

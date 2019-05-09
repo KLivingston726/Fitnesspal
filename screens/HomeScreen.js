@@ -58,10 +58,10 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     //this.watchAuthState(this.props.navigation);
     var user = firebase.auth().currentUser;
-    const userPath = firebase.database().ref('/users/'+user.uid);
+    const userPath = firebase.database().ref('/Info/'+user.uid);
     userPath.on("value", snapshot => {
 
-      let userInfo = snapshot.val();
+      var userInfo = snapshot.val();
       let newState = [];
 
       newState.age = userInfo.age;

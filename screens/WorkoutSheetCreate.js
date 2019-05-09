@@ -42,12 +42,13 @@ export default class WorkoutSheetCreate extends React.Component {
           FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
           var user = firebase.auth().currentUser;
 
-          firebase.database().ref('/Workouts/'+user.uid).push({
+          firebase.database().ref('/Workouts/' + user.uid).push({
               Exercise: this.state.Exercise,
               Sets: this.state.Sets,
               Weight: this.state.Weight,
               Reps: this.state.Reps,
           });
+
 
           this.props.navigation.navigate('showWorkouts');
       }
