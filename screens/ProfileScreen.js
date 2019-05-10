@@ -213,7 +213,7 @@ componentDidMount() {
               </Text>
 
               <View style={styles.infoContainer}>
-                <Text style={styles.infoText}>Email: {user.email}</Text>
+                <Text style={styles.infoText}>Weight: {userInfo.weight}lbs</Text>
               </View>
 
               <Text style={styles.barUI}>
@@ -245,12 +245,8 @@ componentDidMount() {
               </Text>
 
               <View style={styles.infoContainer}>
-                <Text style={styles.infoText}>Weight: {userInfo.weight}</Text>
+                <Text style={styles.infoText}>Email: {user.email}</Text>
               </View>
-
-              <Text style={styles.barUI}>
-                __________________________
-              </Text>
 
               <View style={styles.totalButtonContainer}>
                 <TouchableOpacity
@@ -258,7 +254,7 @@ componentDidMount() {
                   onPress={() => this.userInfo()}
                 >
                   <View>
-                    <Text style={styles.buttonText}>UPDATE SETTINGS</Text>
+                    <Text style={styles.buttonText}>UPDATE PROFILE</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -292,18 +288,21 @@ componentDidMount() {
         marginBottom: 1,
         textAlign: 'left',
         paddingHorizontal: 10,
+        fontFamily: 'DevanagariSangamMN',
         paddingVertical: 10,
         fontSize: 20,
       },
       title: {
         color: '#FFF',
         textAlign: 'center',
+        fontFamily: 'Verdana-Italic',
         fontSize: 40,
       },
       textInput: {
         height: 40,
         borderRadius: 4,
         borderWidth: 2,
+        fontFamily: 'Verdana-Italic',
         borderColor: 'rgba(255,255,255,0.3)',
         marginBottom: 10,
         color: "#FFF",
@@ -316,7 +315,7 @@ componentDidMount() {
       barUI: {
         marginTop: -10,
         marginBottom: 10,
-        color: '#FFF',
+        color: '#5DADE2',
         fontSize: 20,
         fontFamily: 'Georgia-Bold',
         lineHeight: 30,
