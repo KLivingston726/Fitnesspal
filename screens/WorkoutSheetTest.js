@@ -34,85 +34,60 @@ export default class WorkoutSheetTest extends React.Component {
 
     static navigationOptions = {
         header: null,
-      };
-
-      /*
-    componentDidMount() {
-        var userId = firebase.auth().currentUser.uid;
-        database = firebase.database();
-        var ref = database.ref('Workouts/' + userId);
-        ref.on('value', gotData);
-
-        function gotData(data) {
-            var workouts = data.val();
-            var keys = Object.keys(workouts);
-            console.log(keys);
-
-            for (var i = 0; i < keys.length; i++) { 
-                var k = keys[i];
-                var exercise = workouts[k].Exercise;
-                var weights = workouts[k].Weight;
-                var reps = workouts[k].Reps;
-                var sets = workouts[k].Sets;
-                this.createWorkout(exercise, weights, reps, sets);
-                console.log(exercise, weights, reps, sets);
-            }
-        }
-    }
- */
-    
-    readUserData(){
-        var userId = firebase.auth().currentUser.uid;
-        database = firebase.database();
-        var ref = database.ref('Workouts/' + userId);
-        ref.on('value', gotData);
-
-        function gotData(data) {
-            var workouts = data.val();
-            var keys = Object.keys(workouts);
-            console.log(keys);
-
-            for (var i = 0; i < keys.length; i++) { 
-                var k = keys[i];
-                var exercise = workouts[k].Exercise;
-                var weights = workouts[k].Weight;
-                var reps = workouts[k].Reps;
-                var sets = workouts[k].Sets;
-                createWorkout(exercise, weights, reps, sets);
-                console.log(exercise, weights, reps, sets);
-            }
-        }
-
-    }
-    
-
-    createWorkout(exercise, weights, reps, sets){
-        return (
-            <WorkoutSheet Exercise = {exercise} Wieght = {weights} Reps = {reps} Sets = {sets}/>
-        );
-
-    }
+    };
 
     _showWOcreate = () => {
         this.props.navigation.navigate('WOcreate');
     }
+    
+    readUserData = () => {
+        var userId = firebase.auth().currentUser.uid;
+        database = firebase.database();
+        var ref = database.ref('Workouts/' + userId);
+        ref.on('value', gotData);
 
-    getWorkouts(workouts) {
-        let length = workouts.length;
-        console.log( "!!!!!!!!!!!HERE!!!!!!!!!!!!!!!!!!" + length );
+        function gotData(data){
+            var workouts = data.val();
+            var keys = Object.keys(workouts);
+            console.log(keys);
+
+            for (var i = 0; i < keys.length; i++) { 
+                var k = keys[i];
+                var exercise = workouts[k].Exercise;
+                var weights = workouts[k].Weight;
+                var reps = workouts[k].Reps;
+                var sets = workouts[k].Sets;
+                //this.createWorkout(exercise, weights, reps, sets);  //Need to be able to call create workout from inside this function
+                //console.log(exercise, weights, reps, sets);
+            }
+        }
+
+    }
+    
+    createWorkout(exercise, weights, reps, sets){
+        
+        return (
+            <WorkoutSheet Exercise = {exercise} Weight = {weights} Reps = {reps} Sets = {sets}/>
+        );
     }
 
 
+
+
       render(){
-
-        const { workouts } = this.state;
-        console.log( workouts );
-
-        //workoutSheet = this.getWorkouts( workouts );
+        let workouts = this.createWorkout(
+            "100",
+            "100",
+            "100",
+            "100",
+        );
+        console.log("here: " + workouts);
 
           return(
             <View style = {styles.container}>
                 <ScrollView contentContainerStyle = {styles.scrollContainer}>
+
+                    {workouts}
 
                     <View style = {styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this._showWOcreate()}>
