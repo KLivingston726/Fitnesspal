@@ -10,13 +10,9 @@ import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import UserInfoScreen from '../screens/UserInfoScreen';
 
-//Test screen
-import WorkoutSheetTest from '../screens/WorkoutSheetTest';
-import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
-
 
 const AuthStackNavigator = createStackNavigator({Splash: SplashScreen, Login: SigninScreen, Signin: SignUpScreen,
-                                                ForgotPassword: ForgotPasswordScreen, showWorkouts: WorkoutSheetTest, WOcreate: WorkoutSheetCreate});
+                                                ForgotPassword: ForgotPasswordScreen, UserForm: UserInfoScreen});
 //const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
 
 
@@ -29,8 +25,6 @@ export default createSwitchNavigator(
     Main: MainTabNavigator,
     Auth: AuthStackNavigator,
     AuthLoading: AuthLoadingScreen,
-    showWorkouts: WorkoutSheetTest,
-    WOcreate: WorkoutSheetCreate,
   },
   {
     initialRouteName: 'AuthLoading'

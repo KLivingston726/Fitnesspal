@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
+  ImageBackground
  } from 'react-native';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
@@ -57,7 +58,9 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
+      <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.backgroundImage}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+
         <View style={styles.signupContainer}>
           <Text style={styles.title}>Login</Text>
         </View>
@@ -89,7 +92,7 @@ export default class LoginScreen extends React.Component {
           <RectangleButton
             text="Log In Existing"
             color="#FFF"
-            backgroundColor="#2874A6"
+            backgroundColor="rgba(40, 116, 166, .8)"
             handleOnPress={() => this.signIn()}
           />
 
@@ -99,7 +102,9 @@ export default class LoginScreen extends React.Component {
             handleOnPress={this._showForgotPassword}
           />
         </View>
+
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
@@ -107,7 +112,7 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .3)',
   },
   signupContainer: {
     alignItems: 'center',
@@ -120,7 +125,10 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   pushUp: {
-    marginBottom: 15,
+    marginBottom: 30,
+  },
+  backgroundImage: {
+    flex: 1,
   },
 
 });

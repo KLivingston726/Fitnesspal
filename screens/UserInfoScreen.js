@@ -45,27 +45,24 @@ export default class UserInfoScreen extends React.Component {
     title: 'Profile Screen',
   };
 
-  _showLogin = () => {
-    this.props.navigation.navigate('Main');
-  };
-
-  componentDidMount() {
-    this.watchAuthState(this.props.navigation)
-  }
+  
 
   watchAuthState(navigation) {
     firebase.auth().onAuthStateChanged(function(user) {
       console.log('onAuthStatheChanged: ', user);
-      console.log('userID 101: ', user.uid);
+      //console.log('userID: ', user.uid);
 
-
+      //???? Do we need this????
       if (user) {
-        //navigation.navigate('Main');
-      } else {
-
+        navigation.navigate('Main');
       }
     });
   }
+
+  _showLogin = () => {
+    this.props.navigation.navigate('Main');
+  };
+
 
   userInfo() {
     FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
@@ -78,6 +75,8 @@ export default class UserInfoScreen extends React.Component {
       weight: this.state.weight,
       sex: this.state.sex
     });
+
+    this.watchAuthState(this.props.navigation);
   }
 
 

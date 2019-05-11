@@ -3,6 +3,7 @@ import {
   View,
   Image,
   Text,
+  ImageBackground,
   StyleSheet,
   Platform,
   TextInput,
@@ -12,12 +13,13 @@ import {
  } from 'react-native';
  import RectangleButton from '../components/RectangleButton';
 
+
 export default class SplashScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
       email: "",
-      password: ""
+      password: "",
     });
   }
 
@@ -38,26 +40,11 @@ export default class SplashScreen extends React.Component {
 
   render() {
     return (
+      <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.backgroundImage}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.signupContainer}>
           <Text style={styles.title}>Welcome to WorkoutMate</Text>
-          <Text style={styles.infoText}>
-            Log-In or Create New User Below
-          </Text>
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.getStartedText}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/brad.jpg')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-            </Text>
-          </View>
         </View>
-
 
         <View>
             <StatusBar barStyle="light-content" />
@@ -65,19 +52,20 @@ export default class SplashScreen extends React.Component {
             <RectangleButton
               text="Log In Existing"
               color="#FFF"
-              backgroundColor="#2874A6"
+              backgroundColor="rgba(40, 116, 166, .8)"
               handleOnPress={this._showLogin}
             />
             <RectangleButton
               text="Create New User"
               color="#FFF"
-              backgroundColor="#2874A6"
+              backgroundColor="rgba(40, 116, 166, .8)"
               handleOnPress={this._showSignin}
             />
           </View>
         </View>
 
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
@@ -85,13 +73,13 @@ export default class SplashScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .3)',
   },
   signupContainer: {
     alignItems: 'center',
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: '#3498DB',
+
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -121,6 +109,10 @@ const styles = StyleSheet.create({
   },
   totalButtonContainer: {
     marginBottom: 30,
+    zIndex: 100
+  },
+  backgroundImage: {
+    flex: 1,
   },
 
 });

@@ -58,38 +58,44 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     //this.watchAuthState(this.props.navigation);
     var user = firebase.auth().currentUser;
-    const userPath = firebase.database().ref('/users/'+user.uid);
+    const userPath = firebase.database().ref('/Info/'+user.uid);
     userPath.on("value", snapshot => {
 
       let userInfo = snapshot.val();
-      let newState = [];
+      if(userInfo.age == null){
+        console.log(userInfo.age);
+      } else{
 
-      newState.age = userInfo.age;
-      newState.firstName = userInfo.firstName;
-      newState.height= userInfo.height;
-      newState.lastName = userInfo.lastName;
-      newState.sex = userInfo.sex;
-      newState.weight = userInfo.weight;
+        let newState = [];
 
-      // for(let info in userInfo){
-      //   newState.push({
-      //     id: info,
-      //     age: userInfo[info].age,
-      //     firstName: userInfo[info].firstName,
-      //     height: userInfo[info].height,
-      //     lastName: userInfo[info].lastName,
-      //     sex: userInfo[info].sex,
-      //     weight: userInfo[info].weight,
-      //   });
-      //
-      //   // as each iteration goes by 'info' value changes to each attribute
-      //
-      //   console.log(info);
-      // }
+        newState.age = userInfo.age;
+        newState.firstName = userInfo.firstName;
+        newState.height= userInfo.height;
+        newState.lastName = userInfo.lastName;
+        newState.sex = userInfo.sex;
+        newState.weight = userInfo.weight;
 
-      this.setState({
-          userInfo: newState
-      });
+        // for(let info in userInfo){
+        //   newState.push({
+        //     id: info,
+        //     age: userInfo[info].age,
+        //     firstName: userInfo[info].firstName,
+        //     height: userInfo[info].height,
+        //     lastName: userInfo[info].lastName,
+        //     sex: userInfo[info].sex,
+        //     weight: userInfo[info].weight,
+        //   });
+        //
+        //   // as each iteration goes by 'info' value changes to each attribute
+        //
+        //   console.log(info);
+        // }
+
+        this.setState({
+            userInfo: newState
+        });
+      }
+
     });
 
   }
@@ -310,7 +316,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   codeHighlightContainer: {
-    
+
     borderRadius: 300,
     alignItems: 'center',
     marginBottom: 20,
