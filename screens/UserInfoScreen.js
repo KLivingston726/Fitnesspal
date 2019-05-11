@@ -116,8 +116,19 @@ export default class UserInfoScreen extends React.Component {
         return (
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.signupContainer}>
-              <Text style={styles.title}>Profile Information</Text>
+              <Text style={styles.title}>User Profile Set-up</Text>
             </View>
+
+            <View style={styles.welcomeContainer}>
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/stickMan.png')
+                  : require('../assets/images/stickMan.png')
+              }
+              style={styles.welcomeImage}
+            />
+          </View>
 
             <View>
                 <StatusBar barStyle="light-content" />
@@ -216,6 +227,8 @@ export default class UserInfoScreen extends React.Component {
       title: {
         color: '#FFF',
         textAlign: 'center',
+        paddingTop: 40,
+        fontFamily: 'ArialHebrew-Bold',
         fontSize: 40,
       },
       textInput: {
@@ -240,5 +253,19 @@ export default class UserInfoScreen extends React.Component {
          textAlign: 'center',
          color: '#FFF',
          fontWeight: '500',
-       }
+       },
+       welcomeContainer: {
+        alignItems: 'center',
+        backgroundColor: '#3498DB',
+        paddingBottom: 50,
+      },
+      welcomeImage: {
+        width: 175,
+        height: 150,
+        resizeMode: 'contain',
+        backgroundColor: '#3498DB',
+        paddingTop: 20,
+        paddingBottom: 20,
+        marginLeft: 0,
+      },
     });

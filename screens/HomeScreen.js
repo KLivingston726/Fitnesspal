@@ -61,10 +61,8 @@ export default class HomeScreen extends React.Component {
     const userPath = firebase.database().ref('/Info/'+user.uid);
     userPath.on("value", snapshot => {
 
-      let userInfo = snapshot.val();
-      if(userInfo.age == null){
-        console.log(userInfo.age);
-      } else{
+      var userInfo = snapshot.val();
+      let newState = [];
 
         let newState = [];
 
@@ -136,21 +134,19 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>Welcome to WorkoutMate: Your Personal Fitness Tracker</MonoText>
+              <MonoText style={styles.codeHighlightText}>Welcome Back {userInfo.firstName}!</MonoText>
             </View>
           </View>
 
           <View style={styles.welcomeContainer}>
-            <Text style={styles.getStartedText}>
             <Image
               source={
                 __DEV__
                   ? require('../assets/images/chad.jpg')
-                  : require('../assets/images/robot-prod.png')
+                  : require('../assets/images/Workout1.jpg')
               }
               style={styles.welcomeImage}
             />
-            </Text>
           </View>
 
           <View style={styles.getStartedContainer}>
@@ -165,13 +161,6 @@ export default class HomeScreen extends React.Component {
             This Weeks Announcments:
           </Text>
 
-
-
-            <View>
-              <Text>Name: {userInfo.lastName}</Text>
-            </View>
-
-
             {this.announcmentContainer()}
             {this.linkContainer()}
 
@@ -183,13 +172,26 @@ export default class HomeScreen extends React.Component {
             Todays Workout:
           </Text>
 
+          <View style={styles.welcomeContainer}>
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/Workout1.jpg')
+                  : require('../assets/images/Workout1.jpg')
+              }
+              style={styles.welcomeImage}
+            />
+          </View>
+
           <Text style={styles.barUI}>
             __________________________
           </Text>
 
           <Text style={styles.announcmentTitle}>
-            Motivation for the week:
+            Motivation For The Week:
           </Text>
+
+          {this.motivationContainer()}
 
           <Text style={styles.barUI}>
             __________________________
@@ -198,6 +200,18 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.announcmentTitle}>
             Pro Tips:
           </Text>
+
+          {this.tipsContainer()}
+
+          <Text style={styles.barUI}>
+            __________________________
+          </Text>
+
+          <Text style={styles.announcmentTitle}>
+            Our Goal:
+          </Text>
+
+          {this.aboutUsContainer()}
 
           <Text style={styles.bottomBarUI}>
             __________________________
@@ -251,6 +265,31 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  motivationContainer() {
+      return (
+        <Text style={styles.developmentModeText}>
+          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
+        </Text>
+      );
+    }
+
+  tipsContainer() {
+     return (
+      <Text style={styles.developmentModeText}>
+        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!  
+       </Text>
+       );
+     }
+  
+  aboutUsContainer() {
+    return (
+        <Text style={styles.developmentModeText}>
+          We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user......... 
+        </Text>
+       );
+    }   
+
+
   _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
@@ -269,7 +308,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#5499C7',
+    backgroundColor: '#3498DB',
   },
   developmentModeText: {
     marginBottom: 20,
@@ -289,11 +328,13 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
+    backgroundColor: '#3498DB',
   },
   getStartedContainer: {
     alignItems: 'center',
     marginTop: 0,
     marginHorizontal: 10,
+    backgroundColor: '#3498DB',
   },
   getStartedText: {
     fontSize: 25,
@@ -312,23 +353,22 @@ const styles = StyleSheet.create({
   codeHighlightText: {
     fontSize: 20,
     borderRadius: 300,
+    paddingTop: 20,
     textAlign: 'center',
     color: '#FFF',
   },
   codeHighlightContainer: {
-
     borderRadius: 300,
     alignItems: 'center',
+    backgroundColor: '#3498DB',
     marginBottom: 20,
     paddingHorizontal: 20,
-    color: '#FFF',
   },
   weatherHighlightContainer: {
     backgroundColor: '#73C6B6',
     borderRadius: 300,
     alignItems: 'center',
     paddingHorizontal: 20,
-    color: '#FFF',
   },
   infoHighlightContainer: {
     backgroundColor: '#B7950B',
@@ -339,12 +379,15 @@ const styles = StyleSheet.create({
   },
   welcomeContainer: {
     alignItems: 'center',
+    backgroundColor: '#3498DB',
   },
   welcomeImage: {
     width: 375,
     height: 250,
     resizeMode: 'contain',
-    marginTop: 0,
+    backgroundColor: '#3498DB',
+    paddingTop: 20,
+    paddingBottom: 20,
     marginLeft: 0,
   },
   barUI: {
@@ -391,12 +434,12 @@ const styles = StyleSheet.create({
       },
     }),
     alignItems: 'center',
-    backgroundColor: '#5DADE2',
+    backgroundColor: '#2874A6',
     paddingVertical: 10,
   },
   tabBarInfoText: {
     fontSize: 17,
-    color: 'rgba(100,100,100, 1)',
+    color: '#FFF',
     textAlign: 'center',
   },
   navigationFilename: {
@@ -404,6 +447,7 @@ const styles = StyleSheet.create({
   },
   helpContainer: {
     alignItems: 'stretch',
+    backgroundColor: '#3498DB',
     borderRadius: 300,
   },
   helpLink: {
