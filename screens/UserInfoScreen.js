@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
   InteractionManager,
+  ImageBackground,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -119,17 +120,6 @@ export default class UserInfoScreen extends React.Component {
               <Text style={styles.title}>User Profile Set-up</Text>
             </View>
 
-            <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/stickMan.png')
-                  : require('../assets/images/stickMan.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-
             <View>
                 <StatusBar barStyle="light-content" />
 
@@ -228,7 +218,7 @@ export default class UserInfoScreen extends React.Component {
         color: '#FFF',
         textAlign: 'center',
         paddingTop: 40,
-        fontFamily: 'ArialHebrew-Bold',
+        fontFamily: 'AvenirNext-BoldItalic',
         fontSize: 40,
       },
       textInput: {
@@ -267,5 +257,8 @@ export default class UserInfoScreen extends React.Component {
         paddingTop: 20,
         paddingBottom: 20,
         marginLeft: 0,
+      },
+      backgroundImage: {
+        flex: 1,
       },
     });

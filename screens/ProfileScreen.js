@@ -295,7 +295,7 @@ componentDidMount() {
       title: {
         color: '#FFF',
         textAlign: 'center',
-        fontFamily: 'Verdana-Italic',
+        fontFamily: 'AvenirNext-BoldItalic',
         fontSize: 40,
       },
       textInput: {

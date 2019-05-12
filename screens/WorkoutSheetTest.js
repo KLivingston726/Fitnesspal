@@ -87,13 +87,26 @@ export default class WorkoutSheetTest extends React.Component {
             <View style = {styles.container}>
                 <ScrollView contentContainerStyle = {styles.scrollContainer}>
 
+                <Text style={styles.title}>
+                    Workout Sheet
+                </Text>
+
+                <Text style={styles.titleText}>
+                    Click on a workout to mark it as completed or add a new workout with the ⨁ at the bottom!
+                </Text>
+
                     {workouts}
 
                     <View style = {styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this._showWOcreate()}>
-                            <Text style = {styles.createButton}>+</Text>
+                            <Text style = {styles.createButton}>⨁</Text>
                         </TouchableOpacity>
                     </View>
+
+                <Text style={styles.buttonText}>
+                    Add Workout
+                </Text>
+
                 </ScrollView>
             </View>
           );
@@ -107,6 +120,21 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         padding: 20,
     },
+    title: {
+        fontSize: 35,
+        paddingTop: 20,
+        textAlign: 'center',
+        fontFamily: 'AvenirNext-BoldItalic',
+        textDecorationLine: 'underline',
+        color: '#FFF',
+    },
+    titleText: {
+        fontSize: 20,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        textAlign: 'left',
+        color: '#FFF',
+    },
     buttonContainer: {
         alignItems: 'center',
     },
@@ -119,6 +147,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#3498DB',
         borderRadius: 100,
         borderColor: '#fff',
+    },
+    buttonText: {
+        fontSize: 20,
+        textAlign: 'center',
     },
     scrollContainer: {
         flexGrow: 1,
