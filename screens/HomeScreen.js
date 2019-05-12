@@ -64,8 +64,6 @@ export default class HomeScreen extends React.Component {
       var userInfo = snapshot.val();
       let newState = [];
 
-        let newState = [];
-
         newState.age = userInfo.age;
         newState.firstName = userInfo.firstName;
         newState.height= userInfo.height;
@@ -92,7 +90,6 @@ export default class HomeScreen extends React.Component {
         this.setState({
             userInfo: newState
         });
-      }
 
     });
 
@@ -276,18 +273,18 @@ export default class HomeScreen extends React.Component {
   tipsContainer() {
      return (
       <Text style={styles.developmentModeText}>
-        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!  
+        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
        </Text>
        );
      }
-  
+
   aboutUsContainer() {
     return (
         <Text style={styles.developmentModeText}>
-          We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user......... 
+          We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user.........
         </Text>
        );
-    }   
+    }
 
 
   _handleLearnMorePress = () => {
