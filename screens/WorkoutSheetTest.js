@@ -40,7 +40,7 @@ export default class WorkoutSheetTest extends React.Component {
         this.props.navigation.navigate('WOcreate');
     }
     
-    readUserData = () => {
+    readUserData(){
         var userId = firebase.auth().currentUser.uid;
         database = firebase.database();
         var ref = database.ref('Workouts/' + userId);
@@ -49,7 +49,6 @@ export default class WorkoutSheetTest extends React.Component {
         function gotData(data){
             var workouts = data.val();
             var keys = Object.keys(workouts);
-            console.log(keys);
 
             for (var i = 0; i < keys.length; i++) { 
                 var k = keys[i];
@@ -57,7 +56,7 @@ export default class WorkoutSheetTest extends React.Component {
                 var weights = workouts[k].Weight;
                 var reps = workouts[k].Reps;
                 var sets = workouts[k].Sets;
-                //this.createWorkout(exercise, weights, reps, sets);  //Need to be able to call create workout from inside this function
+                this.createWorkout(exercise, weights, reps, sets);  //Need to be able to call create workout from inside this function
                 //console.log(exercise, weights, reps, sets);
             }
         }
@@ -65,6 +64,8 @@ export default class WorkoutSheetTest extends React.Component {
     }
     
     createWorkout(exercise, weights, reps, sets){
+
+        console.log("CREATE WORKOUT CALLED");
         
         return (
             <WorkoutSheet Exercise = {exercise} Weight = {weights} Reps = {reps} Sets = {sets}/>
@@ -75,19 +76,11 @@ export default class WorkoutSheetTest extends React.Component {
 
 
       render(){
-        let workouts = this.createWorkout(
-            "100",
-            "100",
-            "100",
-            "100",
-        );
-        console.log("here: " + workouts);
-
+          
           return(
-            <View style = {styles.container}>
+              <View style = {styles.container}>
                 <ScrollView contentContainerStyle = {styles.scrollContainer}>
-
-                    {workouts}
+                    
 
                     <View style = {styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this._showWOcreate()}>
