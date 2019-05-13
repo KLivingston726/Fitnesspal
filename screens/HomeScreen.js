@@ -64,32 +64,33 @@ export default class HomeScreen extends React.Component {
       var userInfo = snapshot.val();
       let newState = [];
 
-      newState.age = userInfo.age;
-      newState.firstName = userInfo.firstName;
-      newState.height= userInfo.height;
-      newState.lastName = userInfo.lastName;
-      newState.sex = userInfo.sex;
-      newState.weight = userInfo.weight;
+        newState.age = userInfo.age;
+        newState.firstName = userInfo.firstName;
+        newState.height= userInfo.height;
+        newState.lastName = userInfo.lastName;
+        newState.sex = userInfo.sex;
+        newState.weight = userInfo.weight;
 
-      // for(let info in userInfo){
-      //   newState.push({
-      //     id: info,
-      //     age: userInfo[info].age,
-      //     firstName: userInfo[info].firstName,
-      //     height: userInfo[info].height,
-      //     lastName: userInfo[info].lastName,
-      //     sex: userInfo[info].sex,
-      //     weight: userInfo[info].weight,
-      //   });
-      //
-      //   // as each iteration goes by 'info' value changes to each attribute
-      //
-      //   console.log(info);
-      // }
+        // for(let info in userInfo){
+        //   newState.push({
+        //     id: info,
+        //     age: userInfo[info].age,
+        //     firstName: userInfo[info].firstName,
+        //     height: userInfo[info].height,
+        //     lastName: userInfo[info].lastName,
+        //     sex: userInfo[info].sex,
+        //     weight: userInfo[info].weight,
+        //   });
+        //
+        //   // as each iteration goes by 'info' value changes to each attribute
+        //
+        //   console.log(info);
+        // }
 
-      this.setState({
-          userInfo: newState
-      });
+        this.setState({
+            userInfo: newState
+        });
+
     });
 
   }
@@ -129,12 +130,9 @@ export default class HomeScreen extends React.Component {
 
 
           <View style={styles.getStartedContainer}>
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>Welcome Back {userInfo.firstName}!</MonoText>
-            </View>
-          </View>
-
-          <View style={styles.welcomeContainer}>
+            <View style={[styles.titleContainer, styles.homeScreenFilename]}>
+              <MonoText style={styles.titleText}>Welcome Back {userInfo.firstName}!</MonoText>
+              <View style={styles.welcomePictureContainer}>
             <Image
               source={
                 __DEV__
@@ -143,6 +141,8 @@ export default class HomeScreen extends React.Component {
               }
               style={styles.welcomeImage}
             />
+          </View>
+            </View>
           </View>
 
           <View style={styles.getStartedContainer}>
@@ -168,14 +168,14 @@ export default class HomeScreen extends React.Component {
             Todays Workout:
           </Text>
 
-          <View style={styles.welcomeContainer}>
+          <View style={styles.infoPictureContainer}>
             <Image
               source={
                 __DEV__
                   ? require('../assets/images/Workout1.jpg')
                   : require('../assets/images/Workout1.jpg')
               }
-              style={styles.welcomeImage}
+              style={styles.infoImage}
             />
           </View>
 
@@ -237,7 +237,7 @@ export default class HomeScreen extends React.Component {
       </Text>
 
       return (
-        <Text style={styles.developmentModeText}>
+        <Text style={styles.infoText}>
           For information on this weeks events and trainer availibility hit the {learnMoreButton} button!
         </Text>
       );
@@ -253,7 +253,7 @@ export default class HomeScreen extends React.Component {
       );
 
       return (
-        <Text style={styles.developmentModeText}>
+        <Text style={styles.infoText}>
           For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com! {infoLink}
         </Text>
       );
@@ -263,7 +263,7 @@ export default class HomeScreen extends React.Component {
 
   motivationContainer() {
       return (
-        <Text style={styles.developmentModeText}>
+        <Text style={styles.infoText}>
           For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
         </Text>
       );
@@ -271,19 +271,19 @@ export default class HomeScreen extends React.Component {
 
   tipsContainer() {
      return (
-      <Text style={styles.developmentModeText}>
-        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!  
+      <Text style={styles.infoText}>
+        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
        </Text>
        );
      }
-  
+
   aboutUsContainer() {
     return (
-        <Text style={styles.developmentModeText}>
-          We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user......... 
+        <Text style={styles.infoText}>
+          We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user.........
         </Text>
        );
-    }   
+    }
 
 
   _handleLearnMorePress = () => {
@@ -306,13 +306,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#3498DB',
   },
-  developmentModeText: {
-    marginBottom: 20,
-    marginHorizontal: 20,
+  welcomePictureContainer: {
+    alignItems: 'center',
+    marginTop: 5,
+    backgroundColor: '#2874A6',
+  },
+  welcomeImage: {
+    width: 375,
+    height: 250,
+    resizeMode: 'contain',
+    backgroundColor: '#2874A6',
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginLeft: 0,
+  },
+  titleText: {
+    fontSize: 35,
+    paddingTop: 20,
+    textAlign: 'center',
     color: '#FFF',
-    fontSize: 16,
-    lineHeight: 19,
-    textAlign: 'left',
+  },
+  titleContainer: {
+    //borderRadius: 200,
+    alignItems: 'center',
+    backgroundColor: '#2874A6',
+    marginTop: 10,
+    paddingHorizontal: 30,
   },
   button: {
     color: '#FFF',
@@ -346,20 +365,6 @@ const styles = StyleSheet.create({
   homeScreenFilename: {
     marginVertical: 7,
   },
-  codeHighlightText: {
-    fontSize: 20,
-    borderRadius: 300,
-    paddingTop: 20,
-    textAlign: 'center',
-    color: '#FFF',
-  },
-  codeHighlightContainer: {
-    borderRadius: 300,
-    alignItems: 'center',
-    backgroundColor: '#3498DB',
-    marginBottom: 20,
-    paddingHorizontal: 20,
-  },
   weatherHighlightContainer: {
     backgroundColor: '#73C6B6',
     borderRadius: 300,
@@ -373,11 +378,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: '#FFF',
   },
-  welcomeContainer: {
+  infoPictureContainer: {
     alignItems: 'center',
+    marginTop: 5,
     backgroundColor: '#3498DB',
   },
-  welcomeImage: {
+  infoImage: {
     width: 375,
     height: 250,
     resizeMode: 'contain',
@@ -386,10 +392,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginLeft: 0,
   },
+  infoText: {
+    marginBottom: 20,
+    marginTop: 5,
+    marginRight: 2,
+    marginLeft: 40,
+    fontFamily: 'AvenirNext-BoldItalic',
+    color: '#FFF',
+    fontSize: 16,
+    lineHeight: 19,
+    textAlign: 'left',
+  },
   barUI: {
     marginTop: -10,
     marginBottom: 10,
-    color: '#FFF',
+    color: '#5DADE2',
     fontSize: 20,
     fontFamily: 'Georgia-Bold',
     lineHeight: 30,
@@ -398,7 +415,7 @@ const styles = StyleSheet.create({
   bottomBarUI: {
     marginTop: -10,
     marginBottom: 100,
-    color: '#FFF',
+    color: '#5DADE2',
     fontSize: 20,
     fontFamily: 'Georgia-Bold',
     lineHeight: 30,
@@ -407,7 +424,7 @@ const styles = StyleSheet.create({
   announcmentTitle: {
     color: '#FFF',
     fontSize: 20,
-    fontFamily: 'Georgia-Bold',
+    fontFamily: 'AvenirNext-BoldItalic',
     lineHeight: 30,
     textAlign: 'left',
     textDecorationLine: 'underline',

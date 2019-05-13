@@ -7,7 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
+  ImageBackground
  } from 'react-native';
 import firebase from 'firebase'
 import * as FirebaseAPI from '../modules/firebaseAPI';
@@ -33,27 +34,16 @@ export default class LoginScreen extends React.Component {
   };
 
 
-  componentDidMount() {
-    this.watchAuthState(this.props.navigation)
-  }
-
-  watchAuthState(navigation) {
-    firebase.auth().onAuthStateChanged(function(user) {
-      console.log('onAuthStatheChanged: ', user);
-      //console.log('userID: ', user.uid);
-
-      //???? Do we need this????
-      if (user) {
-        navigation.navigate('Main');
-      }
-    });
-  }
+  _showUserFormScreen = () => {
+    this.props.navigation.navigate('UserForm');
+  };
 
 
   //Add additional states for name age height weight ect.
   createUser(check) {
     if(check == true) {
       FirebaseAPI.createUser(this.state.email, this.state.password);
+      this._showUserFormScreen();
     }
     else {
       console.log("Thats a no chief");
@@ -77,12 +67,13 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
+      <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.backgroundImage}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.signupContainer}>
           <Text style={styles.title}>Create User</Text>
         </View>
 
-        <View>
+        <View style={styles.pushUp}>
             <StatusBar barStyle="light-content" />
 
           <InputField
@@ -118,19 +109,16 @@ export default class LoginScreen extends React.Component {
             value={this.state.confirmPassword}
           />
 
-
-          <View style={styles.totalButtonContainer}>
-            <RectangleButton
-              text="Create"
-              color="#FFF"
-              backgroundColor="#2874A6"
-              handleOnPress={() => this.createUser(this.handleConfirmPassword())}
-            />
-
-          </View>
+          <RectangleButton
+            text="Create"
+            color="#FFF"
+            backgroundColor="rgba(40, 116, 166, .8)"
+            handleOnPress={() => this.createUser(this.handleConfirmPassword())}
+          />
         </View>
 
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
@@ -138,7 +126,7 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .3)',
   },
   signupContainer: {
     alignItems: 'center',
@@ -173,5 +161,11 @@ const styles = StyleSheet.create({
      textAlign: 'center',
      color: '#FFF',
      fontWeight: '500',
-   }
+   },
+   backgroundImage: {
+     flex: 1,
+   },
+   pushUp: {
+     marginBottom: 30,
+   },
 });

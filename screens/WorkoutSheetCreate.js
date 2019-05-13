@@ -63,11 +63,23 @@ export default class WorkoutSheetCreate extends React.Component {
           });
 
 
-          this.props.navigation.navigate('showWorkouts');
+          this.watchAuthState(this.props.navigation);
+      }
+
+      watchAuthState(navigation) {
+        firebase.auth().onAuthStateChanged(function(user) {
+          console.log('onAuthStatheChanged: ', user);
+          //console.log('userID: ', user.uid);
+    
+          //???? Do we need this????
+          if (user) {
+            navigation.navigate('Main');
+          }
+        });
       }
 
       _back = ()  => {
-        this.props.navigation.navigate('showWorkouts');
+        this.watchAuthState(this.props.navigation);
       }
       
 
@@ -89,6 +101,11 @@ export default class WorkoutSheetCreate extends React.Component {
 
                 <View style = {styles.header}>
                     <Text style={styles.title}>Create New Workout</Text>
+                </View>
+
+                <View>
+                    <Text style={styles.titleText}>Add a new workout below! When you are done hit either button
+                     at the bottom to be moved back to the Home Screen! </Text>
                 </View>
 
 
@@ -171,18 +188,25 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         padding: 20,
-
     },
     header: {
         alignItems: 'center',
-        padding: 40,
         justifyContent: 'center',
       },
     title: {
         color: '#FFF',
         textAlign: 'center',
-        fontSize: 24,
+        fontFamily: 'AvenirNext-BoldItalic',
+        textDecorationLine: 'underline',
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontSize: 35,
       },
+    titleText: {
+        color: '#FFF',
+        textAlign: 'center',       
+        fontSize: 20,
+    },
     textInput: {
         height: 40,
         borderRadius: 4,

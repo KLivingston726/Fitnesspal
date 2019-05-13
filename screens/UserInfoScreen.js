@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
   InteractionManager,
+  ImageBackground,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -45,27 +46,24 @@ export default class UserInfoScreen extends React.Component {
     title: 'Profile Screen',
   };
 
-  _showLogin = () => {
-    this.props.navigation.navigate('Main');
-  };
-
-  componentDidMount() {
-    this.watchAuthState(this.props.navigation)
-  }
+  
 
   watchAuthState(navigation) {
     firebase.auth().onAuthStateChanged(function(user) {
       console.log('onAuthStatheChanged: ', user);
-      console.log('userID 101: ', user.uid);
+      //console.log('userID: ', user.uid);
 
-
+      //???? Do we need this????
       if (user) {
-        //navigation.navigate('Main');
-      } else {
-
+        navigation.navigate('Main');
       }
     });
   }
+
+  _showLogin = () => {
+    this.props.navigation.navigate('Main');
+  };
+
 
   userInfo() {
     FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
@@ -78,6 +76,8 @@ export default class UserInfoScreen extends React.Component {
       weight: this.state.weight,
       sex: this.state.sex
     });
+
+    this.watchAuthState(this.props.navigation);
   }
 
 
@@ -119,17 +119,6 @@ export default class UserInfoScreen extends React.Component {
             <View style={styles.signupContainer}>
               <Text style={styles.title}>User Profile Set-up</Text>
             </View>
-
-            <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/stickMan.png')
-                  : require('../assets/images/stickMan.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
 
             <View>
                 <StatusBar barStyle="light-content" />
@@ -229,7 +218,7 @@ export default class UserInfoScreen extends React.Component {
         color: '#FFF',
         textAlign: 'center',
         paddingTop: 40,
-        fontFamily: 'ArialHebrew-Bold',
+        fontFamily: 'AvenirNext-BoldItalic',
         fontSize: 40,
       },
       textInput: {
@@ -268,5 +257,8 @@ export default class UserInfoScreen extends React.Component {
         paddingTop: 20,
         paddingBottom: 20,
         marginLeft: 0,
+      },
+      backgroundImage: {
+        flex: 1,
       },
     });

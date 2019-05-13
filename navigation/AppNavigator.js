@@ -9,14 +9,12 @@ import SplashScreen from '../screens/SplashScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import UserInfoScreen from '../screens/UserInfoScreen';
-
-//Test screen
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
 import WorkoutSheetCreate from '../screens/WorkoutSheetCreate';
 
 
 const AuthStackNavigator = createStackNavigator({Splash: SplashScreen, Login: SigninScreen, Signin: SignUpScreen,
-                                                ForgotPassword: ForgotPasswordScreen});
+                                                ForgotPassword: ForgotPasswordScreen, UserForm: UserInfoScreen});
 const WOStackNavigator = createStackNavigator({showWorkouts: WorkoutSheetTest, WOcreate: WorkoutSheetCreate})
 //const AuthStackNavigator = createStackNavigator({Login: SignUpScreen});
 
