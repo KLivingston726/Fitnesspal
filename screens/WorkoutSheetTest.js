@@ -5,6 +5,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  FlatList,
+  ListView,
   TouchableOpacity,
   View,
   InteractionManager,
@@ -28,7 +30,8 @@ export default class WorkoutSheetTest extends React.Component {
         super(props);
 
         this.state =({
-            workouts: [],
+            sheet: [],
+
         });
     }
 
@@ -40,62 +43,47 @@ export default class WorkoutSheetTest extends React.Component {
         this.props.navigation.navigate('WOcreate');
     }
     
-    readUserData(){
+    componentDidMount() {
         var userId = firebase.auth().currentUser.uid;
         database = firebase.database();
         var ref = database.ref('Workouts/' + userId);
-        ref.on('value', gotData);
 
-        function gotData(data){
-            var workouts = data.val();
-            var keys = Object.keys(workouts);
-
-            for (var i = 0; i < keys.length; i++) { 
-                var k = keys[i];
-                var exercise = workouts[k].Exercise;
-                var weights = workouts[k].Weight;
-                var reps = workouts[k].Reps;
-                var sets = workouts[k].Sets;
-                this.createWorkout(exercise, weights, reps, sets);  //Need to be able to call create workout from inside this function
-                //console.log(exercise, weights, reps, sets);
-            }
-        }
-
+        ref.on('value', (childSnapshot) => {
+            const sheet = [];
+            childSnapshot.forEach((doc) => {
+                console.log(doc.toJSON().Exercise);
+                sheet.push({
+                    key: doc.key,
+                    Exercise: doc.toJSON().Exercise,
+                    Weight: doc.toJSON().Weight,
+                    Sets: doc.toJSON().Sets,
+                    Reps: doc.toJSON().Reps
+                });
+                this.setState({
+                    sheet: sheet,
+                })
+            });
+        });
     }
-    
-    createWorkout(exercise, weights, reps, sets){
-
-        console.log("CREATE WORKOUT CALLED");
-        
-        return (
-            <WorkoutSheet Exercise = {exercise} Weight = {weights} Reps = {reps} Sets = {sets}/>
-        );
-    }
-
-
 
 
       render(){
-          
+
+        console.log(this.state.sheet)
+    
           return(
               <View style = {styles.container}>
-                <ScrollView contentContainerStyle = {styles.scrollContainer}>
-<<<<<<< HEAD
-                    
-=======
+                <FlatList
+                    data={this.state.sheet}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <WorkoutSheet Exercise = {item.Exercise} Weight = {item.Weight} Reps = {item.Reps} Sets = {item.Sets}/>);
+                    }}
+                    >
+                </FlatList>
 
-                <Text style={styles.title}>
-                    Workout Sheet
-                </Text>
-
-                <Text style={styles.titleText}>
-                    Click on a workout to mark it as completed or add a new workout with the ⨁ at the bottom!
-                </Text>
-
-                    {workouts}
->>>>>>> 19386a46e0e64c8a56106c33e5d26140e8ab0a4b
-
-                    <View style = {styles.buttonContainer}>
+                
+                <View style = {styles.buttonContainer}>
                         <TouchableOpacity onPress={() => this._showWOcreate()}>
                             <Text style = {styles.createButton}>⨁</Text>
                         </TouchableOpacity>
@@ -105,7 +93,6 @@ export default class WorkoutSheetTest extends React.Component {
                     Add Workout
                 </Text>
 
-                </ScrollView>
             </View>
           );
       }
