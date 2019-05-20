@@ -47,10 +47,10 @@ class WorkoutSheet extends Component {
 
 
 WorkoutSheet.propTypes = {
-    Exercise: PropTypes.string.isRequired,
+    Exercise: PropTypes.string,
     Weight: PropTypes.string,
     Sets: PropTypes.string,
-    Reps: PropTypes.string.isRequired,
+    Reps: PropTypes.string,
   };
 
 
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     contentContainer: {
-        width: '95%'
+        width: '95%',
+        backgroundColor: 'rgba(84, 153, 199, .01)',
     },
     ExerciseInfo: {
         fontSize: 16,

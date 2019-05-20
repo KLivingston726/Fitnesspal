@@ -53,11 +53,11 @@ const WorkoutSheetStack = createStackNavigator({
 });
 
 WorkoutSheetStack.navigationOptions = {
-  tabBarLabel: 'WOTest',
+  tabBarLabel: 'Workouts',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-add-circle${focused ? '' : '-outline'}` : 'ios-add-circle'}
+      name='ios-clipboard'
     />
   ),
 };
@@ -100,7 +100,7 @@ ProfileScreenStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name='md-bookmark'
     />
   ),
 };
@@ -110,13 +110,10 @@ const WorkoutSheetCreateStack = createStackNavigator({
 })
 
 
-
-
-
 export default createBottomTabNavigator({
   HomeStack,
   WorkoutSheetStack,
-  UserInfoStack,
+  //UserInfoStack,
   ProfileScreenStack,
   //LinksStack,
   //SettingsStack,

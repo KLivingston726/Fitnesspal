@@ -43,7 +43,7 @@ export default class SplashScreen extends React.Component {
       <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.backgroundImage}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.signupContainer}>
-          <Text style={styles.title}>Welcome to WorkoutMate</Text>
+          <Text style={styles.title}>Welcome to PocketGym</Text>
         </View>
 
         <View>

@@ -38,8 +38,6 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.navigate('UserForm');
   };
 
-
-  //Add additional states for name age height weight ect.
   createUser(check) {
     if(check == true) {
       FirebaseAPI.createUser(this.state.email, this.state.password);
@@ -48,11 +46,6 @@ export default class LoginScreen extends React.Component {
     else {
       console.log("Thats a no chief");
     }
-      // userRef.push({
-      //   email: this.state.email,
-      //   password: this.state.password
-      // })
-    //this._showUserInfo
   }
 
 
