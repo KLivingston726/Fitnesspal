@@ -22,7 +22,7 @@ class WorkoutSheet extends Component {
         
         const { Exercise, Weight, Sets, Reps } = this.props;
         const {toggle} = this.state;
-        const buttonColor = toggle?'#2874A6':'#2DFFB3';
+        const buttonColor = toggle? 'rgba(40, 116, 166, .5)':'rgba(45, 255, 179, .7)';
         const fontColor = toggle?'#FFF':'#3498DB'
         
         return (
@@ -56,7 +56,7 @@ WorkoutSheet.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#2874A6',
+        backgroundColor: "rgba(40, 116, 166, .5)",
         borderWidth: 2,
         width: '100%',
         padding: 30,
