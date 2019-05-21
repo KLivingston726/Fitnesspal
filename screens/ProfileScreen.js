@@ -1,16 +1,13 @@
 import React from 'react';
 import {
-  Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
   StatusBar,
-  TextInput,
   View,
-  InteractionManager,
+  ImageBackground,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -64,7 +61,6 @@ export default class ProfileScreen extends React.Component {
 
 
 componentDidMount() {
-  //this.watchAuthState(this.props.navigation);
   var user = firebase.auth().currentUser;
   const userPath = firebase.database().ref('/Info/'+user.uid);
   userPath.on("value", snapshot => {
@@ -79,22 +75,6 @@ componentDidMount() {
     newState.sex = userInfo.sex;
     newState.weight = userInfo.weight;
 
-    // for(let info in userInfo){
-    //   newState.push({
-    //     id: info,
-    //     age: userInfo[info].age,
-    //     firstName: userInfo[info].firstName,
-    //     height: userInfo[info].height,
-    //     lastName: userInfo[info].lastName,
-    //     sex: userInfo[info].sex,
-    //     weight: userInfo[info].weight,
-    //   });
-    //
-    //   // as each iteration goes by 'info' value changes to each attribute
-    //
-    //   console.log(info);
-    // }
-
     console.log(userInfo);
 
     this.setState({
@@ -103,6 +83,10 @@ componentDidMount() {
   });
 
 }
+
+_showUserFormScreen = () => {
+  this.props.navigation.navigate('UserForm');
+};
 
   watchAuthState(navigation) {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -123,10 +107,8 @@ componentDidMount() {
     ref.on('value', GotData);
 
     function GotData(data) {
-      //console.log(data.val());
       var scores = data.val();
       var keys = Object.keys(scores);
-      //console.log(keys);
       for (var i = 0; i < keys.length; i++) {
         const k = keys[i];
         const age = scores[k].age;
@@ -140,31 +122,6 @@ componentDidMount() {
       }
     }
 
-  /*
-  readUserData() {
-    var user = firebase.auth().currentUser.uid;
-      var ref = firebase.database().ref('users/'+user);
-      ref.once("value").then(function(snapshot) {
-        var key = snapshot.key;
-        var childkey = snapshot.child(user.age).key;
-        console.log(snapshot.val());
-        console.log(childkey);
-      });
-    }
-
-    */
-
-  /*
-  readUserData() {
-    var user = firebase.auth().currentUser;
-    firebase.database().ref('users/'+user.uid).once('value').then(function(snapshot) {
-        var firstName = snapshot.child().val();
-        console.log(snapshot.val())
-        console.log(firstName)
-    });
-}
-*/
-
     static navigationOptions = {
         header: null,
       };
@@ -177,8 +134,10 @@ componentDidMount() {
         console.log(userInfo);
 
         return (
+          <ImageBackground source={require('../assets/images/background.jpg')} style={styles.backgroundImage}>
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
-
+          <ScrollView style={styles.container}>>
+            
             <View>
                 <StatusBar barStyle="light-content"/>
 
@@ -245,18 +204,20 @@ componentDidMount() {
               <View style={styles.totalButtonContainer}>
                 <TouchableOpacity
                   style={styles.buttonContainer}
-                  onPress={() => this.userInfo()}
+                  onPress={() => this._showUserFormScreen()}
                 >
                   <View>
-                    <Text style={styles.buttonText}>UPDATE PROFILE</Text>
+                    <Text style={styles.buttonText}>UPDATE INFORMATION</Text>
                   </View>
                 </TouchableOpacity>
               </View>
-
-
+              
             </View>
+  
+          </ScrollView>
 
           </KeyboardAvoidingView>
+          </ImageBackground>
         );
       }
     }
@@ -265,17 +226,19 @@ componentDidMount() {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        paddingVertical: 70,
-        backgroundColor: '#3498DB',
+        paddingTop: 25,
+        backgroundColor: 'rgba(84, 153, 199, .01)',
       },
       signupContainer: {
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center',
+        backgroundColor: 'rgba(84, 153, 199, .01)',
       },
       infoContainer: {
         alignItems: 'stretch',
         flexGrow: 1,
+        backgroundColor: 'rgba(84, 153, 199, .01)',
       },
       infoText: {
         color: '#FFF',
@@ -305,6 +268,7 @@ componentDidMount() {
       },
       totalButtonContainer: {
         marginBottom: 40,
+        backgroundColor: 'rgba(84, 153, 199, .01)',
       },
       barUI: {
         marginTop: -10,
@@ -324,5 +288,8 @@ componentDidMount() {
          textAlign: 'center',
          color: '#FFF',
          fontWeight: '500',
-       }
+       },
+       backgroundImage: {
+        flex: 1,
+      },
     });

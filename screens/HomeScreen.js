@@ -8,14 +8,16 @@ import {
   TouchableOpacity,
   View,
   InteractionManager,
+  FlatList,
+  ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import * as FirebaseAPI from '../modules/firebaseAPI';
 import firebase from 'firebase';
+import WorkoutSheet from '../components/WorkoutSheet'
 
-//const database = firebase.database().ref();
-//const userRef = database.child('users/' + firebase.auth().currentUser.uid);
 var user = firebase.auth().currentUser;
 
 if (user != null) {
@@ -44,19 +46,7 @@ export default class HomeScreen extends React.Component {
     })
   }
 
-  getUserInfo() {
-    // var user = firebase.auth().currentUser;
-    // firebase.database().ref('users/'+user.uid).once('value', function (snapshot) {
-    //   console.log(snapshot.val());
-    //   let userInfo = {
-    //     lastName: snapshot.val().lastname,
-    //   }
-    //   return userInfo;
-    // });
-  }
-
   componentDidMount() {
-    //this.watchAuthState(this.props.navigation);
     var user = firebase.auth().currentUser;
     const userPath = firebase.database().ref('/Info/'+user.uid);
     userPath.on("value", snapshot => {
@@ -71,52 +61,31 @@ export default class HomeScreen extends React.Component {
         newState.sex = userInfo.sex;
         newState.weight = userInfo.weight;
 
-        // for(let info in userInfo){
-        //   newState.push({
-        //     id: info,
-        //     age: userInfo[info].age,
-        //     firstName: userInfo[info].firstName,
-        //     height: userInfo[info].height,
-        //     lastName: userInfo[info].lastName,
-        //     sex: userInfo[info].sex,
-        //     weight: userInfo[info].weight,
-        //   });
-        //
-        //   // as each iteration goes by 'info' value changes to each attribute
-        //
-        //   console.log(info);
-        // }
-
         this.setState({
             userInfo: newState
         });
 
     });
 
-  }
+    var ref1 = firebase.database().ref('/Workouts/' + user.uid);
 
-
-
-  watchAuthState(navigation) {
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   console.log('onAuthStatheChanged: ', user);
-    //   console.log('userID 101: ', user.uid);
-    //   var user = firebase.auth().currentUser;
-    //   var lastname;
-    //   firebase.database().ref('users/'+user.uid).once('value').then(function (snapshot) {
-    //     if (!snapshot) {
-    //      console.log('An error occured');
-    //     } else {
-    //
-    //     }
-    //        console.log(snapshot.val());
-    //        console.log(snapshot.val().lastName);
-    //
-    //   });
-    // });
-  }
-
-
+        ref1.on('value', (childSnapshot) => {
+            const sheet = [];
+            childSnapshot.forEach((doc) => {
+                console.log(doc.toJSON().Exercise);
+                sheet.push({
+                    key: doc.key,
+                    Exercise: doc.toJSON().Exercise,
+                    Weight: doc.toJSON().Weight,
+                    Sets: doc.toJSON().Sets,
+                    Reps: doc.toJSON().Reps
+                });
+                this.setState({
+                    sheet: sheet,
+                })
+            });
+        });
+    }
 
   render() {
 
@@ -124,103 +93,130 @@ export default class HomeScreen extends React.Component {
     console.log(userInfo);
 
     return (
-      <View style={styles.container}>
+        <ImageBackground source={require('../assets/images/background.jpg')} style={styles.backgroundImage}>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
+            <View style={[styles.logOutContainer]}>
+              <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
+                <Text style={styles.logoutText}>Sign Out</Text>
+              </TouchableOpacity>
+            </View>
 
-
-          <View style={styles.getStartedContainer}>
-            <View style={[styles.titleContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.titleText}>Welcome Back {userInfo.firstName}!</MonoText>
-              <View style={styles.welcomePictureContainer}>
+            
+            <View style={styles.welcomePictureContainer}>
             <Image
               source={
                 __DEV__
-                  ? require('../assets/images/chad.jpg')
-                  : require('../assets/images/Workout1.jpg')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
+                  ? require('../assets/images/TitlePic.png')
+                  : require('../assets/images/TitlePic.png')
+                }
+                style={styles.welcomeImage}
+              />
             </View>
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            <View style={[styles.weatherHighlightContainer, styles.homeScreenFilename]}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <MonoText style={styles.weatherHighlightContainer}>Click here to check the Weather</MonoText>
-            </TouchableOpacity>
+          
+            <View style={styles.titleContainer}>
+              <Text
+                style={styles.titleText}>Welcome Back {userInfo.firstName}!
+              </Text>
             </View>
-          </View>
 
-          <Text style={styles.announcmentTitle}>
-            This Weeks Announcments:
-          </Text>
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
+
+            <View style={styles.getStartedContainer}>
+              <View style={[styles.weatherHighlightContainer, styles.homeScreenFilename,]}>
+                <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+                  <MonoText style={styles.weatherHighlightContainer}>Click here to check the Weather</MonoText>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <Text style={styles.announcmentTitle}>
+              Current Workout:
+            </Text>
+
+            <Text style={styles.infoText}>
+              Click on workouts to mark them as complete. Goto the Workouts Tab to add or delete workouts.
+            </Text>
+
+            <FlatList style ={styles.workoutContainer}
+                    data={this.state.sheet}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <WorkoutSheet Exercise = {item.Exercise} Weight = {item.Weight} Reps = {item.Reps} Sets = {item.Sets}/>);
+                    }}
+                  >
+            </FlatList>
+
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
+
+            <Text style={styles.announcmentTitle}>
+              This Weeks Announcments:
+            </Text>
 
             {this.announcmentContainer()}
             {this.linkContainer()}
 
             <Text style={styles.barUI}>
-            __________________________
+              __________________________
             </Text>
 
-          <Text style={styles.announcmentTitle}>
-            Todays Workout:
-          </Text>
+            <Text style={styles.announcmentTitle}>
+              Todays Workout:
+            </Text>
 
-          <View style={styles.infoPictureContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/Workout1.jpg')
-                  : require('../assets/images/Workout1.jpg')
-              }
-              style={styles.infoImage}
-            />
-          </View>
+            <View style={styles.infoPictureContainer}>
+              <Image
+                source={
+                  __DEV__
+                    ? require('../assets/images/Workout1.jpg')
+                    : require('../assets/images/Workout1.jpg')
+                }
+                style={styles.infoImage}
+              />
+            </View>
 
-          <Text style={styles.barUI}>
-            __________________________
-          </Text>
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
 
-          <Text style={styles.announcmentTitle}>
-            Motivation For The Week:
-          </Text>
+            <Text style={styles.announcmentTitle}>
+              Motivation For The Week:
+            </Text>
 
-          {this.motivationContainer()}
+            {this.motivationContainer()}
 
-          <Text style={styles.barUI}>
-            __________________________
-          </Text>
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
 
-          <Text style={styles.announcmentTitle}>
-            Pro Tips:
-          </Text>
+            <Text style={styles.announcmentTitle}>
+              Pro Tips:
+            </Text>
 
-          {this.tipsContainer()}
+            {this.tipsContainer()}
 
-          <Text style={styles.barUI}>
-            __________________________
-          </Text>
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
 
-          <Text style={styles.announcmentTitle}>
-            Our Goal:
-          </Text>
+            <Text style={styles.announcmentTitle}>
+              Our Goal:
+            </Text>
 
-          {this.aboutUsContainer()}
+            {this.aboutUsContainer()}
 
-          <Text style={styles.bottomBarUI}>
-            __________________________
-          </Text>
+            <Text style={styles.barUI}>
+              __________________________
+            </Text>
           </ScrollView>
-
-
-        <View style={styles.tabBarInfoContainer}>
-          <TouchableOpacity onPress={() => {this.logout(this.props.navigation)}}>
-            <Text style={styles.tabBarInfoText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      
+        </KeyboardAvoidingView>
+        </ImageBackground>
     );
   }
 
@@ -233,7 +229,7 @@ export default class HomeScreen extends React.Component {
       );
 
       <Text style={styles.barUI}>
-            __________________________
+        __________________________
       </Text>
 
       return (
@@ -264,25 +260,25 @@ export default class HomeScreen extends React.Component {
   motivationContainer() {
       return (
         <Text style={styles.infoText}>
-          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
+          Your body can stand almost anything. It’s your mind that you have to convince.
         </Text>
       );
     }
 
   tipsContainer() {
-     return (
-      <Text style={styles.infoText}>
-        For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
-       </Text>
-       );
-     }
+      return (
+        <Text style={styles.infoText}>
+          For the lates tips and tricks on how to balance your workout and diet, check out the article from our friends over at 8fir.com!
+        </Text>
+      );
+    }
 
   aboutUsContainer() {
-    return (
+      return (
         <Text style={styles.infoText}>
           We are 3 students from Salisbury University who wanted to create a fitness app that was run by the user.........
         </Text>
-       );
+      );
     }
 
 
@@ -304,33 +300,28 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   welcomePictureContainer: {
     alignItems: 'center',
-    marginTop: 5,
-    backgroundColor: '#2874A6',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   welcomeImage: {
     width: 375,
-    height: 250,
+    height: 131,
     resizeMode: 'contain',
-    backgroundColor: '#2874A6',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
     paddingTop: 20,
-    paddingBottom: 20,
     marginLeft: 0,
   },
   titleText: {
     fontSize: 35,
-    paddingTop: 20,
     textAlign: 'center',
+    fontFamily: 'Thonburi-Bold',
     color: '#FFF',
   },
   titleContainer: {
-    //borderRadius: 200,
-    alignItems: 'center',
-    backgroundColor: '#2874A6',
-    marginTop: 10,
+    backgroundColor: 'rgba(0, 0, 0, 100)',
     paddingHorizontal: 30,
   },
   button: {
@@ -343,13 +334,13 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   getStartedContainer: {
     alignItems: 'center',
     marginTop: 0,
     marginHorizontal: 10,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   getStartedText: {
     fontSize: 25,
@@ -366,10 +357,22 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   weatherHighlightContainer: {
-    backgroundColor: '#73C6B6',
+    backgroundColor: '#5DADE2',
     borderRadius: 300,
     alignItems: 'center',
     paddingHorizontal: 20,
+  },
+  logOutContainer: {
+    backgroundColor: 'rgba(84, 153, 199, .01)',
+    borderRadius: 100,
+    paddingRight: 30,
+    paddingTop: 20,
+    paddingBottom: 10,
+  },
+  logoutText: {
+    fontSize: 17,
+    color: '#FFF',
+    textAlign: 'right',
   },
   infoHighlightContainer: {
     backgroundColor: '#B7950B',
@@ -381,13 +384,13 @@ const styles = StyleSheet.create({
   infoPictureContainer: {
     alignItems: 'center',
     marginTop: 5,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   infoImage: {
     width: 375,
     height: 250,
     resizeMode: 'contain',
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
     paddingTop: 20,
     paddingBottom: 20,
     marginLeft: 0,
@@ -431,7 +434,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   tabBarInfoContainer: {
-    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
@@ -446,29 +448,30 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
     }),
-    alignItems: 'center',
     backgroundColor: '#2874A6',
     paddingVertical: 10,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: '#FFF',
-    textAlign: 'center',
   },
   navigationFilename: {
     marginTop: 5,
   },
   helpContainer: {
     alignItems: 'stretch',
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)',
     borderRadius: 300,
   },
   helpLink: {
     paddingVertical: 5,
   },
-  //Text link color
   helpLinkText: {
     fontSize: 16,
     color: '#17202A',
+  },
+  workoutContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(84, 153, 199, .01)',
+  },
+  backgroundImage: {
+    flex: 1,
   },
 });

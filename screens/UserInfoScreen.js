@@ -92,22 +92,6 @@ export default class UserInfoScreen extends React.Component {
       }
   }
 
-
-/*
-  //Add additional states for name age height weight ect.
-  userInfo() {
-    FirebaseAPI.userInfo(this.state.firstName, this.state.lastName, this.state.age, this.state.height, this.state.weight, this.state.sex)
-    userRef.push({
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      age: this.state.age,
-      height: this.state.height,
-      weight: this.state.weight,
-      sex: this.state.sex
-    })
-  }
-   */
-
     static navigationOptions = {
         header: null,
       };
@@ -115,6 +99,7 @@ export default class UserInfoScreen extends React.Component {
       render() {
         var user = firebase.auth().currentUser;
         return (
+          <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.backgroundImage}>
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.signupContainer}>
               <Text style={styles.title}>User Profile Set-up</Text>
@@ -200,6 +185,7 @@ export default class UserInfoScreen extends React.Component {
             </View>
 
           </KeyboardAvoidingView>
+          </ImageBackground>
         );
       }
     }
@@ -207,7 +193,7 @@ export default class UserInfoScreen extends React.Component {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: '#3498DB',
+        backgroundColor: 'rgba(84, 153, 199, .3)',
       },
       signupContainer: {
         alignItems: 'center',
@@ -236,7 +222,7 @@ export default class UserInfoScreen extends React.Component {
       },
       buttonContainer: {
         marginVertical: 5,
-        backgroundColor: '#2874A6',
+        backgroundColor: 'rgba(40, 116, 166, .8)',
         paddingVertical: 12,
        },
        buttonText: {

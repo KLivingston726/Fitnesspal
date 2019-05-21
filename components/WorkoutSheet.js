@@ -22,7 +22,7 @@ class WorkoutSheet extends Component {
         
         const { Exercise, Weight, Sets, Reps } = this.props;
         const {toggle} = this.state;
-        const buttonColor = toggle?'#2874A6':'#2DFFB3';
+        const buttonColor = toggle? 'rgba(40, 116, 166, .5)':'rgba(45, 255, 179, .7)';
         const fontColor = toggle?'#FFF':'#3498DB'
         
         return (
@@ -47,16 +47,16 @@ class WorkoutSheet extends Component {
 
 
 WorkoutSheet.propTypes = {
-    Exercise: PropTypes.string.isRequired,
+    Exercise: PropTypes.string,
     Weight: PropTypes.string,
     Sets: PropTypes.string,
-    Reps: PropTypes.string.isRequired,
+    Reps: PropTypes.string,
   };
 
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#2874A6',
+        backgroundColor: "rgba(40, 116, 166, .5)",
         borderWidth: 2,
         width: '100%',
         padding: 30,
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     contentContainer: {
-        width: '95%'
+        width: '95%',
+        backgroundColor: 'rgba(84, 153, 199, .01)',
     },
     ExerciseInfo: {
         fontSize: 16,

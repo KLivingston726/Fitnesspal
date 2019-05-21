@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   View,
   InteractionManager,
+  ImageBackground,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import WorkoutSheet from '../components/WorkoutSheet'
@@ -54,6 +55,7 @@ export default class WorkoutSheetCreate extends React.Component {
       sheetCreate = () => {
           FirebaseAPI.sheetCreate(this.state.Exercise, this.state.Sets, this.state.Weight, this.state.Reps)
           var user = firebase.auth().currentUser;
+          const day = new Date().getDay;
 
           firebase.database().ref('/Workouts/' + user.uid).push({
               Exercise: this.state.Exercise,
@@ -83,9 +85,12 @@ export default class WorkoutSheetCreate extends React.Component {
       }
       
     render(){
+      const now = new Date();
+      console.log(now);
         return(
-
+            <ImageBackground source={require('../assets/images/background.jpg')} style={styles.backgroundImage}>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <ScrollView style={styles.container}>>
 
                 <View style = {styles.header}>
                     <Text style={styles.title}>Create New Workout</Text>
@@ -93,7 +98,10 @@ export default class WorkoutSheetCreate extends React.Component {
 
                 <View>
                     <Text style={styles.titleText}>Add a new workout below! When you are done hit either button
-                     at the bottom to be moved back to the Home Screen! </Text>
+                     at the bottom to be moved back to the Home Screen!  </Text>
+                </View>
+                <View>
+                    <Text style={styles.alertText}>Please dont leave any sections blank!</Text>
                 </View>
 
 
@@ -159,9 +167,15 @@ export default class WorkoutSheetCreate extends React.Component {
                             </TouchableOpacity>
 
                         </View>
-
                     </View>
+                    <Text style={styles.barUI}>
+                       _______________________
+                    </Text>
+             </ScrollView>
+
              </KeyboardAvoidingView>
+             </ImageBackground>
+
         );
     }
 
@@ -170,12 +184,12 @@ export default class WorkoutSheetCreate extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
-        backgroundColor: '#3498DB',
+        backgroundColor: 'rgba(84, 153, 199, .01)',
     },
     contentContainer: {
         flex: 1,
         padding: 20,
+        backgroundColor: 'rgba(84, 153, 199, .01)',
     },
     header: {
         alignItems: 'center',
@@ -194,7 +208,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         textAlign: 'center',
         fontSize: 20,
-    },
+      },
     textInput: {
         height: 40,
         borderRadius: 4,
@@ -205,6 +219,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         fontSize: 15,
       },
+      alertText: {
+        color: '#FFF',
+        textAlign: 'center', 
+        textDecorationLine: 'underline',      
+        fontSize: 20,
+      },
       totalButtonContainer: {
         marginBottom: 40,
       },
@@ -212,10 +232,23 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         backgroundColor: '#2874A6',
         paddingVertical: 12,
-       },
+      },
        buttonText: {
          textAlign: 'center',
          color: '#FFF',
          fontWeight: '500',
-       }
+      },
+       barUI: {
+        marginTop: -10,
+        marginBottom: 10,
+        paddingBottom: 50,
+        color: 'rgba(84, 153, 199, .01)',
+        fontSize: 20,
+        fontFamily: 'Georgia-Bold',
+        lineHeight: 30,
+        textAlign: 'center',
+      },
+      backgroundImage: {
+        flex: 1,
+      }
 });
