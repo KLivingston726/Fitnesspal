@@ -61,13 +61,7 @@ export default class ProfileScreen extends React.Component {
   _showLogin = () => {
     this.props.navigation.navigate('Main');
   };
-componentWillMount() {
-    var user = firebase.auth().currentUser;
-    const{uid} = firebase.auth().currentUser.uid;
-      let userRef = firebase.database().ref('/users/'+ uid);
-      userRef.once('value').then(snapshot => {this.setState({ items: snapshot.val});
-  });
-}
+
 
 componentDidMount() {
   //this.watchAuthState(this.props.navigation);
@@ -127,7 +121,7 @@ componentDidMount() {
     database1 = firebase.database();
     const ref = database1.ref('Info');
     ref.on('value', GotData);
-    
+
     function GotData(data) {
       //console.log(data.val());
       var scores = data.val();
@@ -184,18 +178,18 @@ componentDidMount() {
 
         return (
           <KeyboardAvoidingView behavior="padding" style={styles.container}>
-            
+
             <View>
                 <StatusBar barStyle="light-content"/>
 
               <View style={styles.Container}>
                 <Text style={styles.title}>User Profile</Text>
-              </View>  
+              </View>
 
               <Text style={styles.barUI}>
                 __________________________
               </Text>
-    
+
               <View style={styles.infoContainer}>
                 <Text style={styles.infoText}>First Name: {userInfo.firstName}</Text>
               </View>
@@ -259,15 +253,15 @@ componentDidMount() {
                 </TouchableOpacity>
               </View>
 
-              
+
             </View>
-    
+
           </KeyboardAvoidingView>
         );
       }
     }
-  
-    
+
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,

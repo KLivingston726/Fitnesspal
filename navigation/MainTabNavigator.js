@@ -10,7 +10,8 @@ import SettingsScreen from '../screens/SettingsScreen';
 import SignupScreen from '../screens/SignUpScreen';
 import UserInfoScreen from '../screens/UserInfoScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-
+import ExerciseDescription from '../components/ExerciseDescription';
+import ExerciseScreen from '../screens/ExerciseScreen';
 //TEST SCREENS
 import WorkoutSheetTest from '../screens/WorkoutSheetTest';
 
@@ -63,11 +64,26 @@ WorkoutSheetStack.navigationOptions = {
 };
 
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const ExerciseStack= createStackNavigator({
+  Exercise: ExerciseDescription,
+  ExerciseScreen: ExerciseScreen,
 });
 
-SettingsStack.navigationOptions = {
+ExerciseStack.navigationOptions = {
+  tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
+
+const ExerciseScreenStack= createStackNavigator({
+  ExerciseScreen: ExerciseScreen,
+});
+
+ExerciseScreenStack.navigationOptions = {
   tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -118,6 +134,6 @@ export default createBottomTabNavigator({
   WorkoutSheetStack,
   UserInfoStack,
   ProfileScreenStack,
-  //LinksStack,
+  ExerciseScreenStack,
   //SettingsStack,
 });

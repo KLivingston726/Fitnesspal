@@ -70,7 +70,7 @@ export default class WorkoutSheetCreate extends React.Component {
         firebase.auth().onAuthStateChanged(function(user) {
           console.log('onAuthStatheChanged: ', user);
           //console.log('userID: ', user.uid);
-    
+
           //???? Do we need this????
           if (user) {
             navigation.navigate('Main');
@@ -82,18 +82,6 @@ export default class WorkoutSheetCreate extends React.Component {
         this.watchAuthState(this.props.navigation);
       }
       
-
-      validateInputs(text, type) {
-        let numreg = /^[0-9]+$/;
-          if (type == 'age') {
-            if (numreg.test(text)) {
-              this.setState({age: text})
-            } else {
-    
-            }
-          }
-      }
-
     render(){
         return(
 
@@ -204,7 +192,7 @@ const styles = StyleSheet.create({
       },
     titleText: {
         color: '#FFF',
-        textAlign: 'center',       
+        textAlign: 'center',
         fontSize: 20,
     },
     textInput: {
