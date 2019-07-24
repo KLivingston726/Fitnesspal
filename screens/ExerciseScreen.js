@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  ImageBackground,
 } from 'react-native';
 import * as FirebaseAPI from '../modules/firebaseAPI';
 import firebase from 'firebase';
@@ -65,7 +66,8 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container} >
+      <ImageBackground source={require('../assets/images/background.jpg')} style={styles.container}>
+      <View>
         <Text style={styles.title}>
           Exercise Database
         </Text>
@@ -82,6 +84,7 @@ export default class App extends Component {
           // }
         />
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .01)'
   },
   h2text: {
     marginTop: 10,

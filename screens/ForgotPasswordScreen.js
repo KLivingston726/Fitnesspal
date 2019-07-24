@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   Platform,
+  ImageBackground,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -32,6 +33,7 @@ export default class ForgotPasswordScreen extends React.Component {
 
   render() {
     return (
+      <ImageBackground source={require('../assets/images/brad.jpg')} style={styles.container}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
 
 
@@ -76,6 +78,7 @@ export default class ForgotPasswordScreen extends React.Component {
         </View>
 
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
@@ -83,7 +86,7 @@ export default class ForgotPasswordScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3498DB',
+    backgroundColor: 'rgba(84, 153, 199, .3)',
   },
   signupContainer: {
     alignItems: 'center',

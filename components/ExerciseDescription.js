@@ -7,6 +7,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
   StyleSheet,
 } from 'react-native';
 import * as FirebaseAPI from '../modules/firebaseAPI';
@@ -45,6 +46,21 @@ export default class ExerciseDescription extends Component {
 
   }
 
+  watchAuthState(navigation) {
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log('onAuthStatheChanged: ', user);
+      //console.log('userID: ', user.uid);
+
+      //???? Do we need this????
+      if (user) {
+        navigation.navigate('Main');
+      }
+    });
+  }
+
+  _back = ()  => {
+    this.watchAuthState(this.props.navigation);
+  }
 
 
 
@@ -52,14 +68,23 @@ export default class ExerciseDescription extends Component {
 
   render() {
 
-
      const { exerciseInfo } = this.state;
 
     return (
+      <ImageBackground source={require('../assets/images/background.jpg')} style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.title}>{exerciseInfo.Title}</Text>
           <Text style={styles.text}>{exerciseInfo.Description}</Text>
+
+          <TouchableOpacity
+              style = {styles.buttonContainer}
+              onPress={() => this._back()}
+          >
+              <Text style = {styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+
         </View>
+      </ImageBackground>
 
     );
   }
@@ -77,16 +102,25 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 40,
     paddingHorizontal: 20,
-    backgroundColor: '#3498DB',
+
   },
-  buttonText: {
-    fontWeight: '500',
-    textAlign: 'center',
-  },
+  titleText: {
+      color: '#FFF',
+      textAlign: 'center',
+      fontSize: 20,
+    },
   buttonContainer: {
     marginVertical: 5,
+    backgroundColor: '#2874A6',
     paddingVertical: 12,
+    marginTop: 50,
   },
+
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFF',
+    fontWeight: '500',
+ },
   center: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -94,6 +128,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     color: "#fff",
+    paddingBottom: 30,
   },
   text: {
     fontSize: 16,

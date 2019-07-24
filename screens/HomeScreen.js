@@ -103,7 +103,7 @@ export default class HomeScreen extends React.Component {
               </TouchableOpacity>
             </View>
 
-            
+
             <View style={styles.welcomePictureContainer}>
             <Image
               source={
@@ -114,7 +114,7 @@ export default class HomeScreen extends React.Component {
                 style={styles.welcomeImage}
               />
             </View>
-          
+
             <View style={styles.titleContainer}>
               <Text
                 style={styles.titleText}>Welcome Back {userInfo.firstName}!
@@ -214,7 +214,7 @@ export default class HomeScreen extends React.Component {
               __________________________
             </Text>
           </ScrollView>
-      
+
         </KeyboardAvoidingView>
         </ImageBackground>
     );
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(84, 153, 199, .01)',
   },
   welcomeImage: {
-    width: 375,
-    height: 131,
+    width: '100%',
+    height: 150,
     resizeMode: 'contain',
     backgroundColor: 'rgba(84, 153, 199, .01)',
     paddingTop: 20,
